@@ -14,5 +14,6 @@ source $ZSH/oh-my-zsh.sh
 
 
 alias ls="ls -a --color=auto"
+alias zb="zen-browser"
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

@@ -7,7 +7,7 @@ vim.opt.tabstop = 3
 vim.opt.shiftwidth = 3
 
 -- style arguments: rounded, single, double, solid, none
-vim.opt.winborder = "single"
+vim.opt.winborder = "rounded"
 -- leader key
 vim.g.mapleader = " "
 
@@ -15,6 +15,21 @@ vim.g.mapleader = " "
 vim.keymap.set('n', '<leader>w', ':write<CR>')
 vim.keymap.set('n', '<leader>q', ':quit<CR>')
 vim.keymap.set('n', '<leader>t', ':tabnew %<CR>')
+-- newline thing
+vim.keymap.set('n', '<leader>o', 'o<Esc>')
+vim.keymap.set('n', '<leader>O', 'O<Esc>')
+
+--open browser here
+vim.keymap.set('n', '<leader>b', ':Zb<CR>')
+--open html version of code here
+vim.keymap.set('n', '<leader>B', ':TOhtml<CR>:Zb<CR>:quit<CR>')
+
+--typst preview
+vim.keymap.set('n', '<leader>T', ':TypstPreview')
+
+--typst export as pdf
+vim.keymap.set('n', '<leader>E', ':LspTinymistExportPdf')
+
 -- format doc
 vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
 vim.keymap.set('n', '<leader>a', vim.diagnostic.open_float)
@@ -68,6 +83,11 @@ vim.api.nvim_create_autocmd("BufReadCmd", {
 vim.api.nvim_create_user_command("Trm", function()
 	local file_dir = vim.fn.expand("%:p:h")
 	vim.fn.jobstart({ "kitty", "--working-directory", file_dir }, { detach = true })
+end, {})
+
+vim.api.nvim_create_user_command("Zb", function()
+	local file_dir = vim.fn.expand("%")
+	vim.fn.jobstart({ "zen-browser", file_dir }, { detach = true })
 end, {})
 
 -- packages w/nightly package manager
@@ -177,7 +197,8 @@ local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>r', ':below Recompile<CR>')
 vim.keymap.set('n', '<leader>R', ':below Compile<CR>')
 vim.keymap.set('n', '<leader>e', ':Oil<CR>')
-vim.keymap.set('n', '<leader><Tab>', ':Telescope<CR>')
+-- vim.keymap.set('n', '<leader><Tab>', ':Telescope<CR>')
+vim.keymap.set('n', '<leader><Tab>', ':Telescope find_files cwd=.<CR>')
 -- find files
 vim.keymap.set('n', '<leader>s',
 	function()
