@@ -1,4 +1,4 @@
--- vim settingsinit
+-- vim settingsinitinit.lua
 -- note to self : DISABLE THE F1 KEY PLSS
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -16,8 +16,9 @@ vim.keymap.set('n', '<leader>w', ':write<CR>')
 vim.keymap.set('n', '<leader>q', ':quit<CR>')
 vim.keymap.set('n', '<leader>t', ':tabnew %<CR>')
 -- newline thing
-vim.keymap.set('n', '<leader>o', 'o<Esc>')
-vim.keymap.set('n', '<leader>O', 'O<Esc>')
+
+vim.keymap.set('n', '<leader>o', 'o<Esc>k')
+vim.keymap.set('n', '<leader>O', 'O<Esc>j')
 
 --open browser here
 vim.keymap.set('n', '<leader>b', ':Zb<CR>')
@@ -25,10 +26,10 @@ vim.keymap.set('n', '<leader>b', ':Zb<CR>')
 vim.keymap.set('n', '<leader>B', ':TOhtml<CR>:Zb<CR>:quit<CR>')
 
 --typst preview
-vim.keymap.set('n', '<leader>T', ':TypstPreview')
+vim.keymap.set('n', '<leader>T', ':TypstPreview<CR>')
 
 --typst export as pdf
-vim.keymap.set('n', '<leader>E', ':LspTinymistExportPdf')
+vim.keymap.set('n', '<leader>E', ':LspTinymistExportPdf<CR>')
 
 -- format doc
 vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
