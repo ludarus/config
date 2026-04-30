@@ -1,0 +1,3 @@
+tmux new-session -d -s backend -n editor -c /home/joe/projects/sublimis/backend 'nvim .'
+tmux new-window -t backend -n sbt -c /home/joe/projects/sublimis/backend 
+tmux attach -t backend

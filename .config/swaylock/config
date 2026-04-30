@@ -1,3 +1,7 @@
 show-failed-attempts
 image=/home/joe/eye.jpg
 scaling=center
+font=JetBrainsMonoNerdFontMono
+font-size=25
+indicator-radius=100
+indicator-thickness=15

@@ -17,9 +17,6 @@ set $menu rofi
 
 exec swaybg -i /home/joe/eye.jpg -m center
 
-# opening applications 
-exec zen-browser
-
 # autorun programs 
 exec_always waybar
 exec_always nm-applet
@@ -29,6 +26,13 @@ exec swayidle -w \
          timeout 300 'swaylock -f -c 000000' \
          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
          before-sleep 'swaylock -f -c 000000'
+
+# opening applications 
+exec zen-browser
+exec discord
+
+# replacement for sddm
+exec swaylock
 
 # Touchpad config 
   input type:touchpad {

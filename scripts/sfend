@@ -1,0 +1,3 @@
+tmux new-session -d -s frontend -n editor -c /home/joe/projects/sublimis/frontend 'nvim .'
+tmux new-window -t frontend -n npm -c /home/joe/projects/sublimis/frontend 'npm run dev'
+tmux attach -t frontend
