@@ -1,7 +1,38 @@
 show-failed-attempts
+
 image=/home/joe/eye.jpg
 scaling=center
+
 font=JetBrainsMonoNerdFontMono
-font-size=25
-indicator-radius=100
-indicator-thickness=15
+font-size=20
+
+indicator-radius=65
+indicator-thickness=13
+
+indicator-y-position=200
+
+inside-color=00000040
+# ring-color=
+# line-color=
+# text-color=
+
+# inside-clear-color=
+# ring-clear-color=
+# line-clear-color=
+# text-clear-color=
+
+# inside-caps-lock-color=
+# ring-caps-lock-color=
+# line-caps-lock-color=
+# text-caps-lock-color=
+
+# inside-ver-color=
+# ring-ver-color=
+# line-ver-color=
+# text-ver-color=
+
+# inside-wrong-color
+# ring-wrong-color
+# line-wrong-color
+# text-wrong-color
+

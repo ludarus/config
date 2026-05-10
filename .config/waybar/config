@@ -29,14 +29,24 @@
 		"format-plugged": "&#8239;{capacity}%",
 		"format-alt": "{icon} {time}",
 		"format-icons": [
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			""
+			"⅛",
+			"⅕",
+			"⅓",
+			"½",
+			"⅔",
+			"⅘",
+			"⅟"
 		]
+		// how do i get these icons?? ?
+		// "format-icons": [
+		// 	"",
+		// 	"",
+		// 	"",
+		// 	"",
+		// 	"",
+		// 	"",
+		// 	""
+		// ]
 	},
 	"sway/mode": {
 		"format": "<span style=\"italic\">{}</span>"
@@ -47,7 +57,7 @@
 	},
 	"clock": {
 		"locale": "C",
-		"format": " {:%I:%M %p}",
+		"format": " {:%H:%M}",
 		"format-alt": " {:%a,%b %d}" // Icon: calendar-alt
 	},
 	"cpu": {

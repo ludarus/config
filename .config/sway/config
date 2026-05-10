@@ -217,5 +217,8 @@ bindsym $mod+button3 resize
 # Aesthetics
     default_border none
 	 mouse_warping container
+	 corner_radius 15
+	 gaps inner 5
+	 gaps top 0
 
 include /etc/sway/config.d/*

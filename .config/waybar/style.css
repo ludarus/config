@@ -1,36 +1,35 @@
 * {
-	font-family: JetBrainsMono;
+	font-family: "JetBrainsMono Nerd Font";
 	font-size: 14px;
 	min-height: 0;
 	color: white;
 }
 
 window#waybar {
-	/* background-color: transparent; */
+	background-color: transparent;
 	/* background-color: rgba(0,0,0,0.50); */
-	background-color: #071113;
+	/* background-color: #071113; */
 }
 
 #workspaces {
-	margin-top: 3px;
-	margin-bottom: 2px;
-	margin-right: 10px;
-	margin-left: 25px;
+	margin-top: 5px;
+	margin-right: 0.5em;
+	margin-left: 5px;
 }
 
 #workspaces button {
-	border-radius: 15px;
-	margin-right: 10px;
-	padding: 1px 10px;
+	border-radius: 1em;
+	margin-right: 0.5em;
+	padding: 0 0.75em;
 	font-weight: bolder;
-	background-color: #181818;
+	background-color: rgba(0,0,0,0.4);
 }
 
 #workspaces button.active,
 #workspaces button.focused {
-	padding: 0 22px;
-	box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
-	background: #7C9D96;
+	padding: 0 1.5em;
+	/* box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; */
+	background-color: rgba(255, 255, 255, 0.1);
 }
 
 #tray,
@@ -49,6 +48,11 @@ window#waybar {
 #battery,
 #clock,
 #idle_inhibitor,
+#window,
 #network {
-	padding: 0 10px;
+	padding: 0 0.75em;
+	background: rgba(0,0,0,0.4);
+	border-radius: 1em;
+	margin-right: 0.5em;
+	margin-top: 5px;
 }

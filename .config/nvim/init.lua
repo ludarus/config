@@ -1,5 +1,7 @@
 -- vim settingsinitinit.lua
 -- note to self : DISABLE THE F1 KEY PLSS
+vim.api.nvim_set_keymap("n", "<F1>", "<Nop>", { noremap = true, silent = true })
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.swapfile = false
@@ -15,6 +17,7 @@ vim.g.mapleader = " "
 vim.keymap.set('n', '<leader>w', ':write<CR>')
 vim.keymap.set('n', '<leader>q', ':quit<CR>')
 vim.keymap.set('n', '<leader>t', ':tabnew %<CR>')
+
 -- newline thing
 
 vim.keymap.set('n', '<leader>o', 'o<Esc>k')
@@ -59,14 +62,15 @@ vim.g.neovide_scale_factor = 1.0
 -- autopen commands from a random blog
 -- Open binary files
 -- pdf
-vim.api.nvim_create_autocmd("BufReadCmd", {
-	pattern = "*.pdf",
-	callback = function()
-		local filename = vim.fn.shellescape(vim.api.nvim_buf_get_name(0))
-		vim.cmd("silent !zen-browser " .. filename .. " &")
-		vim.cmd("let tobedeleted = bufnr('%') | b# | exe \"bd! \" . tobedeleted")
-	end
-})
+
+-- vim.api.nvim_create_autocmd("BufReadCmd", {
+-- 	pattern = "*.pdf",
+-- 	callback = function()
+-- 		local filename = vim.fn.shellescape(vim.api.nvim_buf_get_name(0))
+-- 		vim.cmd("silent !zen-browser " .. filename .. " &")
+-- 		vim.cmd("let tobedeleted = bufnr('%') | b# | exe \"bd! \" . tobedeleted")
+-- 	end
+-- })
 
 -- images
 vim.api.nvim_create_autocmd("BufReadCmd", {
@@ -195,9 +199,13 @@ local builtin = require('telescope.builtin')
 
 
 -- plugin keybinds
-vim.keymap.set('n', '<leader>r', ':below Recompile<CR>')
-vim.keymap.set('n', '<leader>R', ':below Compile<CR>')
+vim.keymap.set('n', '<leader>R', ':below Recompile<CR>')
+vim.keymap.set('n', '<leader>r', ':below Compile<CR>')
 vim.keymap.set('n', '<leader>e', ':Oil<CR>')
+-- inserting current directory
+vim.keymap.set("c", "<M-d>", function()
+  return require("oil").get_current_dir()
+end, { expr = true })
 -- vim.keymap.set('n', '<leader><Tab>', ':Telescope<CR>')
 vim.keymap.set('n', '<leader><Tab>', ':Telescope find_files cwd=.<CR>')
 -- find files
