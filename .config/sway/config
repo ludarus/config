@@ -3,6 +3,16 @@ assign [app_id="spotify"] workspace 1
 assign [class="discord"] workspace 2
 assign [app_id="zen"] workspace 3
 
+# window rules
+for_window {
+  [app_id="zen"] inhibit_idle fullscreen
+  [window_role="pop-up"] floating enable
+  [window_role="bubble"] floating enable
+  [window_role="dialog"] floating enable
+  [window_type="dialog"] floating enable
+  [app_id="blueman-manager"] floating enable
+}
+
 # variables
 set $mod Mod4
 
@@ -63,12 +73,13 @@ blur_saturation 1.0
 # blur_ignore_transparent enable;
 # default_dim_inactive 0.75;
 # }
-layer_effects "waybar" {
-    blur enable;
-    blur_xray disable;
-    blur_ignore_transparent enable;
-    # shadows enable;
-}
+
+# layer_effects "waybar" {
+#     blur enable;
+#     blur_xray disable;
+#     blur_ignore_transparent enable;
+#     # shadows enable;
+# }
 
 # Gestures config
 bindgesture swipe:4:left workspace next
