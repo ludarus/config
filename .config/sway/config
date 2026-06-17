@@ -49,6 +49,8 @@ exec swaylock
       dwt disabled 
       tap enabled
       click_method clickfinger 
+      # click_method none 
+      # click_method button_areas 
       drag enabled
       drag_lock enabled
       natural_scroll enabled

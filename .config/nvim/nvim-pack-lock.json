@@ -4,6 +4,10 @@
       "rev": "539d73def39c9172b4d4d769f14090e08f37b29d",
       "src": "https://github.com/romgrk/barbar.nvim"
     },
+    "coc.nvim": {
+      "rev": "e62e589c4a65c2047741946299f2406217b6ce13",
+      "src": "https://github.com/neoclide/coc.nvim"
+    },
     "compile-mode.nvim": {
       "rev": "6b41499bd782be2c213011072ce0f0eb9f7b78a2",
       "src": "https://github.com/ej-shafran/compile-mode.nvim"
@@ -19,6 +23,10 @@
     "gitsigns.nvim": {
       "rev": "7c4faa3540d0781a28588cafbd4dd187a28ac6e3",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
+    "hex.nvim": {
+      "rev": "b46e63356a69e8d6f046c38a9708d55d17f15038",
+      "src": "https://github.com/RaafatTurki/hex.nvim"
     },
     "live-preview.nvim": {
       "rev": "c1fcf75c5f9c9c01dd392852de44204b60f1b5b1",

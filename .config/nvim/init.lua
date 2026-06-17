@@ -1,4 +1,4 @@
--- vim settingsinitinit.lua
+-- vim settingsinitinit.luainitinit
 -- note to self : DISABLE THE F1 KEY PLSS
 vim.api.nvim_set_keymap("n", "<F1>", "<Nop>", { noremap = true, silent = true })
 
@@ -7,6 +7,8 @@ vim.opt.relativenumber = true
 vim.opt.swapfile = false
 vim.opt.tabstop = 3
 vim.opt.shiftwidth = 3
+
+vim.opt.signcolumn = "yes"
 
 -- style arguments: rounded, single, double, solid, none
 vim.opt.winborder = "rounded"
@@ -18,8 +20,13 @@ vim.keymap.set('n', '<leader>w', ':write<CR>')
 vim.keymap.set('n', '<leader>q', ':quit<CR>')
 vim.keymap.set('n', '<leader>t', ':tabnew %<CR>')
 
--- newline thing
+--hex mode
+vim.keymap.set('n', '<leader>h', ':HexToggle<CR>')
 
+-- spellcheck
+vim.keymap.set('n', '<leader>p', ':set spell<CR>')
+
+-- newline thing
 vim.keymap.set('n', '<leader>o', 'o<Esc>k')
 vim.keymap.set('n', '<leader>O', 'O<Esc>j')
 
@@ -63,24 +70,24 @@ vim.g.neovide_scale_factor = 1.0
 -- Open binary files
 -- pdf
 
--- vim.api.nvim_create_autocmd("BufReadCmd", {
--- 	pattern = "*.pdf",
--- 	callback = function()
--- 		local filename = vim.fn.shellescape(vim.api.nvim_buf_get_name(0))
--- 		vim.cmd("silent !zen-browser " .. filename .. " &")
--- 		vim.cmd("let tobedeleted = bufnr('%') | b# | exe \"bd! \" . tobedeleted")
--- 	end
--- })
-
--- images
 vim.api.nvim_create_autocmd("BufReadCmd", {
-	pattern = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp" },
+	pattern = "*.pdf",
 	callback = function()
 		local filename = vim.fn.shellescape(vim.api.nvim_buf_get_name(0))
 		vim.cmd("silent !zen-browser " .. filename .. " &")
 		vim.cmd("let tobedeleted = bufnr('%') | b# | exe \"bd! \" . tobedeleted")
 	end
 })
+
+-- images auto open
+-- vim.api.nvim_create_autocmd("BufReadCmd", {
+-- 	pattern = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp" },
+-- 	callback = function()
+-- 		local filename = vim.fn.shellescape(vim.api.nvim_buf_get_name(0))
+-- 		vim.cmd("silent !zen-browser " .. filename .. " &")
+-- 		vim.cmd("let tobedeleted = bufnr('%') | b# | exe \"bd! \" . tobedeleted")
+-- 	end
+-- })
 
 
 -- vibecoded:
@@ -119,6 +126,7 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/lucaSartore/fastspell.nvim" },
+	-- lsp completion
 	{ src = "https://github.com/nvim-mini/mini.completion" },
 	{ src = "https://github.com/brianhuster/live-preview.nvim" },
 	{ src = "https://github.com/ej-shafran/compile-mode.nvim" },
@@ -126,6 +134,11 @@ vim.pack.add({
 	-- { src = "https://github.com/romgrk/barbar.nvim" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/mfussenegger/nvim-dap" },
+
+	{ src = "https://github.com/RaafatTurki/hex.nvim" },
+
+	-- coc for stm32 vscode extension emulation. i guess i'll use the completion if i want to as well...
+	-- { src = "https://github.com/neoclide/coc.nvim" },
 
 })
 local metals = require("metals")
@@ -142,11 +155,11 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- require plugins and stuff
 require('java').setup()
+
 -- require "barbar".setup({
 -- 	auto_hide = false,
---
 -- })
---
+
 vim.g.compile_mode = {
 	default_command = "",
 }
@@ -193,6 +206,29 @@ require "typst-preview".setup({
 
 
 })
+
+-- hex editing
+-- defaults
+require 'hex'.setup {
+
+  -- cli command used to dump hex data
+  dump_cmd = 'xxd -g 1 -u',
+
+  -- cli command used to assemble from hex data
+  assemble_cmd = 'xxd -r',
+  
+  -- function that runs on BufReadPre to determine if it's binary or not
+  is_file_binary_pre_read = function()
+    -- logic that determines if a buffer contains binary data or not
+    -- must return a bool
+  end,
+
+  -- function that runs on BufReadPost to determine if it's binary or not
+  is_file_binary_post_read = function()
+    -- logic that determines if a buffer contains binary data or not
+    -- must return a bool
+  end,
+}
 -- for executing functions and stuph
 local builtin = require('telescope.builtin')
 
@@ -204,7 +240,7 @@ vim.keymap.set('n', '<leader>r', ':below Compile<CR>')
 vim.keymap.set('n', '<leader>e', ':Oil<CR>')
 -- inserting current directory
 vim.keymap.set("c", "<M-d>", function()
-  return require("oil").get_current_dir()
+	return require("oil").get_current_dir()
 end, { expr = true })
 -- vim.keymap.set('n', '<leader><Tab>', ':Telescope<CR>')
 vim.keymap.set('n', '<leader><Tab>', ':Telescope find_files cwd=.<CR>')
@@ -228,7 +264,7 @@ vim.keymap.set('n', '<leader>s',
 	end)
 
 -- enabling languages for lsp
-vim.lsp.enable({ "jdtls", "tinymist", "lua_ls", "clangd", "html", "cssls", "tailwindcss", "ts_ls", "jsonls" })
+vim.lsp.enable({ "pylsp", "jdtls", "tinymist", "lua_ls", "clangd", "html", "cssls", "tailwindcss", "ts_ls", "jsonls" })
 -- fix vim errors
 vim.lsp.config("lua_ls", {
 	settings = {
