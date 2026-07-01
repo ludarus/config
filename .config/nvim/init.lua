@@ -1,7 +1,7 @@
 -- vim settingsinitinit.luainitinit
 -- note to self : DISABLE THE F1 KEY PLSS
 vim.api.nvim_set_keymap("n", "<F1>", "<Nop>", { noremap = true, silent = true })
-
+vim.opt.completeopt = { 'menuone', 'noinsert' }
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.swapfile = false
@@ -128,10 +128,12 @@ vim.pack.add({
 	{ src = "https://github.com/lucaSartore/fastspell.nvim" },
 	-- lsp completion
 	{ src = "https://github.com/nvim-mini/mini.completion" },
+	{ src = "https://github.com/nvim-mini/mini.icons" },
+	{ src = "https://github.com/nvim-mini/mini.snippets" },
 	{ src = "https://github.com/brianhuster/live-preview.nvim" },
 	{ src = "https://github.com/ej-shafran/compile-mode.nvim" },
 	{ src = "https://github.com/scalameta/nvim-metals" },
-	-- { src = "https://github.com/romgrk/barbar.nvim" },
+	{ src = "https://github.com/romgrk/barbar.nvim" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/mfussenegger/nvim-dap" },
 
@@ -156,9 +158,16 @@ vim.api.nvim_create_autocmd("FileType", {
 -- require plugins and stuff
 require('java').setup()
 
--- require "barbar".setup({
--- 	auto_hide = false,
--- })
+-- treesitter
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function()
+		pcall(vim.treesitter.start)
+	end,
+})
+
+require "barbar".setup({
+	auto_hide = false,
+})
 
 vim.g.compile_mode = {
 	default_command = "",
@@ -211,23 +220,23 @@ require "typst-preview".setup({
 -- defaults
 require 'hex'.setup {
 
-  -- cli command used to dump hex data
-  dump_cmd = 'xxd -g 1 -u',
+	-- cli command used to dump hex data
+	dump_cmd = 'xxd -g 1 -u',
 
-  -- cli command used to assemble from hex data
-  assemble_cmd = 'xxd -r',
-  
-  -- function that runs on BufReadPre to determine if it's binary or not
-  is_file_binary_pre_read = function()
-    -- logic that determines if a buffer contains binary data or not
-    -- must return a bool
-  end,
+	-- cli command used to assemble from hex data
+	assemble_cmd = 'xxd -r',
 
-  -- function that runs on BufReadPost to determine if it's binary or not
-  is_file_binary_post_read = function()
-    -- logic that determines if a buffer contains binary data or not
-    -- must return a bool
-  end,
+	-- function that runs on BufReadPre to determine if it's binary or not
+	is_file_binary_pre_read = function()
+		-- logic that determines if a buffer contains binary data or not
+		-- must return a bool
+	end,
+
+	-- function that runs on BufReadPost to determine if it's binary or not
+	is_file_binary_post_read = function()
+		-- logic that determines if a buffer contains binary data or not
+		-- must return a bool
+	end,
 }
 -- for executing functions and stuph
 local builtin = require('telescope.builtin')

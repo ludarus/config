@@ -36,6 +36,14 @@
       "rev": "4f94cafdeef02bf3ef9997cd6862658801caa22c",
       "src": "https://github.com/nvim-mini/mini.completion"
     },
+    "mini.icons": {
+      "rev": "ac38c983aed0a2bd32a65ca3e2348e12e58ca292",
+      "src": "https://github.com/nvim-mini/mini.icons"
+    },
+    "mini.snippets": {
+      "rev": "b2ea1dc28505ac5869dd9ace67ebb2bc6f3e87f2",
+      "src": "https://github.com/nvim-mini/mini.snippets"
+    },
     "nui.nvim": {
       "rev": "de740991c12411b663994b2860f1a4fd0937c130",
       "src": "https://github.com/MunifTanjim/nui.nvim"
