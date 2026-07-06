@@ -1,5 +1,3 @@
--- vim settingsinitinit.luainitinit
--- note to self : DISABLE THE F1 KEY PLSS
 vim.api.nvim_set_keymap("n", "<F1>", "<Nop>", { noremap = true, silent = true })
 vim.opt.completeopt = { 'menuone', 'noinsert' }
 vim.opt.number = true
@@ -7,6 +5,7 @@ vim.opt.relativenumber = true
 vim.opt.swapfile = false
 vim.opt.tabstop = 3
 vim.opt.shiftwidth = 3
+vim.opt.modeline = false
 
 vim.opt.signcolumn = "yes"
 
@@ -21,20 +20,24 @@ vim.keymap.set('n', '<leader>q', ':quit<CR>')
 vim.keymap.set('n', '<leader>t', ':tabnew %<CR>')
 
 --hex mode
-vim.keymap.set('n', '<leader>h', ':HexToggle<CR>')
+vim.keymap.set('n', '<leader>H', ':HexToggle<CR>')
+
+-- tree
+vim.keymap.set('n', '<leader>d', ':NvimTreeToggle<CR>')
 
 -- spellcheck
 vim.keymap.set('n', '<leader>p', ':set spell<CR>')
 
 -- newline thing
-vim.keymap.set('n', '<leader>o', 'o<Esc>k')
-vim.keymap.set('n', '<leader>O', 'O<Esc>j')
+vim.keymap.set('n', '<leader>o', 'o<Esc>0Dk$')
+vim.keymap.set('n', '<leader>O', 'O<Esc>0Dj$')
 
 --open browser here
 vim.keymap.set('n', '<leader>b', ':Zb<CR>')
 --open html version of code here
 vim.keymap.set('n', '<leader>B', ':TOhtml<CR>:Zb<CR>:quit<CR>')
-
+-- live preview
+vim.keymap.set('n', '<leader>P', ':LivePreview start<CR>')
 --typst preview
 vim.keymap.set('n', '<leader>T', ':TypstPreview<CR>')
 
@@ -121,6 +124,7 @@ vim.pack.add({
 	{ src = "https://github.com/chomosuke/typst-preview.nvim" },
 	{ src = "https://github.com/Myriad-Dreamin/tinymist" },
 	{ src = "https://github.com/stevearc/oil.nvim" },
+	{ src = "https://github.com/nvim-tree/nvim-tree.lua" },
 	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
@@ -133,7 +137,7 @@ vim.pack.add({
 	{ src = "https://github.com/brianhuster/live-preview.nvim" },
 	{ src = "https://github.com/ej-shafran/compile-mode.nvim" },
 	{ src = "https://github.com/scalameta/nvim-metals" },
-	{ src = "https://github.com/romgrk/barbar.nvim" },
+	-- { src = "https://github.com/romgrk/barbar.nvim" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/mfussenegger/nvim-dap" },
 
@@ -155,6 +159,8 @@ vim.api.nvim_create_autocmd("FileType", {
 	group = nvim_metals_group,
 })
 
+require("nvim-tree").setup()
+
 -- require plugins and stuff
 require('java').setup()
 
@@ -165,10 +171,69 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
-require "barbar".setup({
-	auto_hide = false,
-})
-
+-- require "barbar".setup({
+-- 	auto_hide = false,
+-- })
+--
+-- -- barbar config
+-- local map = vim.api.nvim_set_keymap
+-- local opts = { noremap = true, silent = true }
+--
+-- -- Move to previous/next
+-- map('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
+-- map('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
+--
+-- -- Re-order to previous/next
+-- map('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
+-- map('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
+--
+-- -- Goto buffer in position...
+-- map('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
+-- map('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
+-- map('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
+-- map('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
+-- map('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
+-- map('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
+-- map('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
+-- map('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
+-- map('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
+-- map('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
+--
+-- -- Pin/unpin buffer
+-- map('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
+--
+-- -- Goto pinned/unpinned buffer
+-- --                 :BufferGotoPinned
+-- --                 :BufferGotoUnpinned
+--
+-- -- Close buffer
+-- map('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
+--
+-- -- Wipeout buffer
+-- --                 :BufferWipeout
+--
+-- -- Close commands
+-- --                 :BufferCloseAllButCurrent
+-- --                 :BufferCloseAllButPinned
+-- --                 :BufferCloseAllButCurrentOrPinned
+-- --                 :BufferCloseBuffersLeft
+-- --                 :BufferCloseBuffersRight
+--
+-- -- Magic buffer-picking mode
+-- map('n', '<C-p>',   '<Cmd>BufferPick<CR>', opts)
+-- map('n', '<C-s-p>', '<Cmd>BufferPickDelete<CR>', opts)
+--
+-- -- Sort automatically by...
+-- map('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', opts)
+-- map('n', '<Space>bn', '<Cmd>BufferOrderByName<CR>', opts)
+-- map('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', opts)
+-- map('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', opts)
+-- map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', opts)
+--
+-- -- Other:
+-- -- :BarbarEnable - enables barbar (enabled by default)
+-- -- :BarbarDisable - very bad command, should never be used
+--
 vim.g.compile_mode = {
 	default_command = "",
 }
@@ -198,6 +263,10 @@ require "telescope".setup({
 	defaults = {
 		path_display = { "smart" },
 		color_devicons = true,
+		sorting_strategy = "descending",
+		layout_config = {
+			prompt_position = "bottom",
+		},
 	},
 })
 
@@ -272,8 +341,12 @@ vim.keymap.set('n', '<leader>s',
 		})
 	end)
 
--- enabling languages for lsp
-vim.lsp.enable({ "pylsp", "jdtls", "tinymist", "lua_ls", "clangd", "html", "cssls", "tailwindcss", "ts_ls", "jsonls" })
+vim.lsp.config("clangd", {
+	cmd = {
+		"clangd",
+		"--background-index",
+	},
+})
 -- fix vim errors
 vim.lsp.config("lua_ls", {
 	settings = {
@@ -285,7 +358,20 @@ vim.lsp.config("lua_ls", {
 	}
 }
 )
+vim.lsp.config("pylsp", {
+	settings = {
+		pylsp = {
+			plugins = {
+				pycodestyle = {
+					maxLineLength = 120,
+				},
+			},
+		},
+	},
+})
 
+-- enabling languages for lsp
+vim.lsp.enable({ "pylsp", "jdtls", "tinymist", "lua_ls", "clangd", "html", "cssls", "tailwindcss", "ts_ls", "jsonls" })
 
 vim.cmd("colorscheme oxocarbon")
 

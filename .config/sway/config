@@ -1,8 +1,7 @@
 # workspaces stuff
-assign [app_id="spotify"] workspace 1
+assign [class="Spotify"] workspace 1
 assign [class="discord"] workspace 2
 assign [app_id="zen"] workspace 3
-
 # window rules
 for_window {
   [app_id="zen"] inhibit_idle fullscreen
@@ -40,9 +39,7 @@ exec swayidle -w \
 # opening applications 
 exec zen-browser
 exec discord
-
-# replacement for sddm
-exec swaylock
+exec spotify-launcher
 
 # Touchpad config 
   input type:touchpad {
@@ -92,10 +89,10 @@ bindgesture swipe:4:down floating disabled
 
 bindgesture hold:4 exec playerctl play-pause
 
-bindgesture swipe:3:left move left 100px
-bindgesture swipe:3:right move right 100px
-bindgesture swipe:3:up move up 100px
-bindgesture swipe:3:down move down 100px
+bindgesture swipe:3:left move left 200px
+bindgesture swipe:3:right move right 200px
+bindgesture swipe:3:up move up 200px
+bindgesture swipe:3:down move down 200px
 
 output eDP-1 mode 2560x1600@60Hz
 
@@ -132,11 +129,11 @@ output eDP-1 mode 2560x1600@60Hz
     bindsym $mod+$right focus right
 
     # Move the focused window with the same, but add Shift
-    bindsym $mod+Shift+$left move left
-    bindsym $mod+Shift+$down move down
-    bindsym $mod+Shift+$up move up
-    bindsym $mod+Shift+$right move right
-    
+    bindsym $mod+Shift+$left move left 100px
+    bindsym $mod+Shift+$down move down 100px
+    bindsym $mod+Shift+$up move up 100px
+    bindsym $mod+Shift+$right move right 100px
+
 # Workspaces:
     bindsym $mod+Ctrl+$right workspace next
     bindsym $mod+Ctrl+$left workspace prev
