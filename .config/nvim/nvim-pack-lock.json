@@ -12,6 +12,10 @@
       "rev": "6b41499bd782be2c213011072ce0f0eb9f7b78a2",
       "src": "https://github.com/ej-shafran/compile-mode.nvim"
     },
+    "edge": {
+      "rev": "7ec78c21bd8f0b2b0b47043bb1e730c561647c72",
+      "src": "https://github.com/sainnhe/edge"
+    },
     "fastspell.nvim": {
       "rev": "c7343a923862330e46001a8e45f698fb9afac2b3",
       "src": "https://github.com/lucaSartore/fastspell.nvim"
@@ -104,6 +108,10 @@
     "tinymist": {
       "rev": "2898809b7cd99b7651d032564ee1477aa1b27226",
       "src": "https://github.com/Myriad-Dreamin/tinymist"
+    },
+    "truefalse.nvim": {
+      "rev": "92e7bd83a9d9d9c5bb38d2d3ac5b1421ac816983",
+      "src": "https://github.com/ferplnat/truefalse.nvim"
     },
     "typst-preview.nvim": {
       "rev": "bf5d5eaf23bbfcca9f98a24ed29bd084abf89bf2",

@@ -29,8 +29,8 @@ vim.keymap.set('n', '<leader>d', ':NvimTreeToggle<CR>')
 vim.keymap.set('n', '<leader>p', ':set spell<CR>')
 
 -- newline thing
-vim.keymap.set('n', '<leader>o', 'o<Esc>0Dk$')
-vim.keymap.set('n', '<leader>O', 'O<Esc>0Dj$')
+vim.keymap.set('n', '<leader>o', 'o<Esc>0"_Dk$')
+vim.keymap.set('n', '<leader>O', 'O<Esc>0"_Dj$')
 
 --open browser here
 vim.keymap.set('n', '<leader>b', ':Zb<CR>')
@@ -47,13 +47,31 @@ vim.keymap.set('n', '<leader>E', ':LspTinymistExportPdf<CR>')
 -- format doc
 vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
 vim.keymap.set('n', '<leader>a', vim.diagnostic.open_float)
--- neovide copy and pasting
+
+-- neovide only settings
 if vim.g.neovide then
+	-- copy and pasting
 	local function copy() vim.cmd([[normal! "+y]]) end
 	local function paste() vim.api.nvim_paste(vim.fn.getreg("+"), true, -1) end
 
 	vim.keymap.set("v", "<C-C>", copy, { silent = true, desc = "Copy" })
 	vim.keymap.set({ "n", "i", "v", "c", "t" }, "<C-S-V>", paste, { silent = true, desc = "Paste" })
+
+	-- zoom
+	vim.g.neovide_scale_factor = 1.0
+
+	-- transparency
+	vim.g.neovide_opacity = 0.5
+
+	-- fps
+	vim.g.neovide_refresh_rate = 60
+
+	-- far scroll animations
+	vim.g.neovide_scroll_animation_far_lines = 20
+
+	-- vfx	
+	-- vim.g.neovide_cursor_vfx_mode = ""
+	vim.g.neovide_cursor_vfx_mode = "pixiedust"
 end
 
 -- autosave command
@@ -67,7 +85,6 @@ vim.api.nvim_create_autocmd({ 'InsertLeavePre', 'TextChanged', 'TextChangedP' },
 
 --setting fontsize for neovide
 vim.o.guifont = "JetBrainsMono Nerd Font Mono:h20"
-vim.g.neovide_scale_factor = 1.0
 
 -- autopen commands from a random blog
 -- Open binary files
@@ -143,8 +160,7 @@ vim.pack.add({
 
 	{ src = "https://github.com/RaafatTurki/hex.nvim" },
 
-	-- coc for stm32 vscode extension emulation. i guess i'll use the completion if i want to as well...
-	-- { src = "https://github.com/neoclide/coc.nvim" },
+	{ src = "https://github.com/ferplnat/truefalse.nvim" },
 
 })
 local metals = require("metals")
@@ -163,6 +179,10 @@ require("nvim-tree").setup()
 
 -- require plugins and stuff
 require('java').setup()
+
+require('truefalse').setup({
+	keymap = '<Leader>g'
+})
 
 -- treesitter
 vim.api.nvim_create_autocmd("FileType", {
@@ -345,6 +365,7 @@ vim.lsp.config("clangd", {
 	cmd = {
 		"clangd",
 		"--background-index",
+		"--query-driver=/usr/bin/arm-none-eabi-gcc",
 	},
 })
 -- fix vim errors
@@ -382,6 +403,3 @@ vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
 vim.api.nvim_set_hl(0, "LineNr", { bg = "none" })
 vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
 vim.api.nvim_set_hl(0, "LineNr", { fg = "#525252" })
-
---neovide transparency
-vim.g.neovide_opacity = 0.5

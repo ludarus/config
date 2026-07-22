@@ -19,6 +19,10 @@ source $ZSH/oh-my-zsh.sh
 
 alias ls="ls -a --color=auto"
 alias zb="zen-browser"
+alias nvid="neovide"
+alias ta="tmux a"
+alias tn="tmux new"
+alias n.="neovide ."
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 

@@ -2,6 +2,10 @@
 assign [class="Spotify"] workspace 1
 assign [class="discord"] workspace 2
 assign [app_id="zen"] workspace 3
+assign [app_id="neovide"] workspace 4
+assign [app_id="STM32CubeIDE"] workspace 5
+assign [class="com-st-microxplorer-maingui-STM32CubeMX"] workspace 6
+
 # window rules
 for_window {
   [app_id="zen"] inhibit_idle fullscreen
@@ -113,6 +117,10 @@ output eDP-1 mode 2560x1600@60Hz
     bindsym $mod+space exec $menu -show drun
     bindsym $mod+Shift+space exec $menu -show run
     bindsym $mod+Tab exec $menu -show window 
+
+	 # bogger toggle
+	 bindsym $mod+n border none
+	 bindsym $mod+b border pixel
 
     floating_modifier $mod normal
 
@@ -226,9 +234,20 @@ bindsym $mod+button3 resize
 
 # Aesthetics
     default_border none
+	 default_floating_border none
+	 hide_edge_borders smart
 	 mouse_warping container
 	 corner_radius 15
 	 gaps inner 5
 	 gaps top 0
+
+	# colours
+	# 						border 	 bg	   text    indictr-o child border-o
+	# client.focused 	#00000080 #000000 #000000 #00000080 #000000
+	# client.unfocused 	#00000080 #000000 #000000 #00000080 #000000
+
+	# client.focused_inactive
+	# client.urgent
+	# client.background
 
 include /etc/sway/config.d/*
