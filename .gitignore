@@ -6,6 +6,17 @@
 !.gitattributes
 !README.md
 
+# add directories and their contents
+!.config/kitty/
+!.config/neovide/
+!.config/nvim/
+!.config/rofi/
+!.config/sioyek/
+!.config/sway/
+!.config/swaylock/
+!.config/waybar/
+!.config/zen/b3zdx82h.Default (release)/chrome/
+
 !.config/kitty/**
 !.config/neovide/**
 !.config/nvim/**
