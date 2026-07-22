@@ -1,0 +1,27 @@
+# ignore everything in home dir
+*
+
+# track these:
+!.gitignore
+!.gitattributes
+!README.md
+
+!.config/kitty/**
+!.config/neovide/**
+!.config/nvim/**
+!.config/rofi/**
+!.config/sioyek/**
+!.config/sway/**
+!.config/swaylock/**
+!.config/waybar/**
+!.config/zen/b3zdx82h.Default (release)/chrome/**
+!.config/zen/b3zdx82h.Default (release)/prefs.js
+
+!.oh-my-zsh/oh-my-zsh.sh
+!.p10k.zsh
+!.tmux.conf
+!.zshrc
+!eye.jpg
+
+!scripts/**
+scripts/sbend
