@@ -238,7 +238,12 @@ bindsym $mod+button3 resize
 # Aesthetics
     default_border none
 	 default_floating_border none
-	 hide_edge_borders smart
+
+	 # for stacking/tabbed layouts:
+	 titlebar_border_thickness 0
+    titlebar_padding 0
+	 font pango:monospace 8
+
 	 mouse_warping container
 	 corner_radius 15
 	 gaps inner 5
@@ -246,8 +251,8 @@ bindsym $mod+button3 resize
 
 	# colours
 	# 						border 	 bg	   text    indictr-o child border-o
-	# client.focused 	#00000080 #000000 #000000 #00000080 #000000
-	# client.unfocused 	#00000080 #000000 #000000 #00000080 #000000
+	client.focused 	#00000080 #000000 #000000 #00000080 #000000
+	client.unfocused 	#00000080 #000000 #000000 #00000080 #000000
 
 	# client.focused_inactive
 	# client.urgent
