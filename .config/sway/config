@@ -2,7 +2,7 @@
 assign [class="Spotify"] workspace 1
 assign [class="discord"] workspace 2
 assign [app_id="zen"] workspace 3
-assign [app_id="neovide"] workspace 4
+# assign [app_id="neovide"] workspace 4
 assign [app_id="STM32CubeIDE"] workspace 5
 assign [class="com-st-microxplorer-maingui-STM32CubeMX"] workspace 6
 
@@ -29,6 +29,9 @@ set $term kitty
 set $menu rofi
 
 exec swaybg -i /home/joe/eye.jpg -m center
+
+# policy kit
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # autorun programs 
 exec_always waybar

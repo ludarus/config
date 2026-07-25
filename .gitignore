@@ -7,6 +7,7 @@
 !README.md
 
 # add directories and their contents
+!.config/
 !.config/kitty/
 !.config/neovide/
 !.config/nvim/
@@ -16,6 +17,7 @@
 !.config/swaylock/
 !.config/waybar/
 !.config/zen/b3zdx82h.Default (release)/chrome/
+!.config/tlp/
 
 !.config/kitty/**
 !.config/neovide/**
@@ -27,6 +29,7 @@
 !.config/waybar/**
 !.config/zen/b3zdx82h.Default (release)/chrome/**
 !.config/zen/b3zdx82h.Default (release)/prefs.js
+!.config/tlp/**
 
 !.oh-my-zsh/oh-my-zsh.sh
 !.p10k.zsh

@@ -7,7 +7,9 @@
 	"modules-left": [
 		"sway/workspaces"
 	],
-	"modules-center": ["sway/window"],
+	"modules-center": [
+		"sway/window"
+	],
 	"modules-right": [
 		"tray",
 		"network",
@@ -17,6 +19,7 @@
 		"pulseaudio",
 		"backlight",
 		"battery",
+		"custom/tlp",
 		"clock"
 	],
 	"battery": {
@@ -47,6 +50,13 @@
 		// 	"",
 		// 	""
 		// ]
+	},
+	// power profile
+	"custom/tlp": {
+		"exec": "~/.config/waybar/scripts/tlp-profile.sh",
+		"on-click": "~/.config/waybar/scripts/tlp-profile.sh toggle",
+		"interval": 2,
+		"tooltip": false
 	},
 	"sway/mode": {
 		"format": "<span style=\"italic\">{}</span>"

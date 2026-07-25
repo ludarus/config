@@ -1,0 +1,1 @@
+/etc/tlp.conf
