@@ -19,6 +19,7 @@
 !.config/zen/b3zdx82h.Default (release)/chrome/
 !.config/tlp/
 !scripts/
+!.config/systemd/
 
 !.config/kitty/**
 !.config/neovide/**
@@ -28,6 +29,7 @@
 !.config/sway/**
 !.config/swaylock/**
 !.config/waybar/**
+!.config/systemd/**
 !.config/zen/b3zdx82h.Default (release)/chrome/**
 !.config/zen/b3zdx82h.Default (release)/prefs.js
 !.config/tlp/**

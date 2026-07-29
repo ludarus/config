@@ -22,7 +22,7 @@ window#waybar {
 	margin-right: 0.5em;
 	padding: 0 0.75em;
 	font-weight: bolder;
-	background-color: rgba(0,0,0,0.4);
+	background-color: rgba(0, 0, 0, 0.4);
 }
 
 #workspaces button.active,
@@ -52,8 +52,12 @@ window#waybar {
 #window,
 #network {
 	padding: 0 0.75em;
-	background: rgba(0,0,0,0.4);
+	background: rgba(0, 0, 0, 0.4);
 	border-radius: 1em;
 	margin-right: 0.5em;
 	margin-top: 5px;
+}
+
+#battery.discharging.critical {
+	color: #ff5555;
 }
