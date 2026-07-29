@@ -15,6 +15,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(git)
 
+zstyle ':omz:update' mode disabled
 source $ZSH/oh-my-zsh.sh
 
 alias ls="ls -a --color=auto"

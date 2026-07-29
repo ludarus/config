@@ -53,7 +53,7 @@
 	},
 	// power profile
 	"custom/tlp": {
-		"exec": "~/.config/waybar/scripts/tlp-profile.sh",
+		"exec": "~/scripts/tlp-profile.sh",
 		"on-click": "~/.config/waybar/scripts/tlp-profile.sh toggle",
 		"interval": 2,
 		"tooltip": false

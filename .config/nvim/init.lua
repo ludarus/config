@@ -70,8 +70,8 @@ if vim.g.neovide then
 	vim.g.neovide_scroll_animation_far_lines = 20
 
 	-- vfx	
-	-- vim.g.neovide_cursor_vfx_mode = ""
-	vim.g.neovide_cursor_vfx_mode = "pixiedust"
+	vim.g.neovide_cursor_vfx_mode = ""
+	-- vim.g.neovide_cursor_vfx_mode = "pixiedust"
 end
 
 -- autosave command

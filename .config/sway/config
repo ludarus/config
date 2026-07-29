@@ -1,5 +1,6 @@
 # workspaces stuff
 assign [class="Spotify"] workspace 1
+assign [app_id="ticktick"] workspace 1
 assign [class="discord"] workspace 2
 assign [app_id="zen"] workspace 3
 # assign [app_id="neovide"] workspace 4
@@ -47,6 +48,7 @@ exec swayidle -w \
 exec zen-browser
 exec discord
 exec spotify-launcher
+exec ticktick
 
 # Touchpad config 
   input type:touchpad {
@@ -104,9 +106,15 @@ bindgesture swipe:3:down move down 200px
 output eDP-1 mode 2560x1600@60Hz
 
 
-# Key bindings
+# Keybinds
     # toggle waybar
     bindsym $mod+period exec pkill -SIGUSR1 waybar
+
+	 # toggle refresh rate
+	 bindsym XF86RefreshRateToggle exec ~/scripts/refresh-toggle.sh
+
+	 # toggle swaync menu
+    bindsym $mod+p exec swaync-client -t -sw
 
     # Start a terminal
     bindsym $mod+Return exec $term

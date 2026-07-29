@@ -18,6 +18,7 @@
 !.config/waybar/
 !.config/zen/b3zdx82h.Default (release)/chrome/
 !.config/tlp/
+!scripts/
 
 !.config/kitty/**
 !.config/neovide/**
