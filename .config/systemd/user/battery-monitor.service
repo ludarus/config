@@ -4,7 +4,7 @@ Description=Battery Monitor
 [Service]
 ExecStart=%h/scripts/battery-monitor.sh
 Restart=always
-RestartSec=30
+RestartSec=60
 
 [Install]
 WantedBy=default.target

@@ -9,7 +9,7 @@ if [ "$STATUS" = "Discharging" ]; then
         notify-send -u critical -t 0 \
             "Battery Critical" \
             "Battery is at ${BATTERY}%, connect to AC power immediately"
-    elif [ "$BATTERY" -le 20 ]; then
+    elif [ "$BATTERY" -le 25 ]; then
         notify-send -u normal \
             "Battery Low" \
             "Battery is at ${BATTERY}%."

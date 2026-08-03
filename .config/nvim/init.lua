@@ -136,6 +136,7 @@ vim.pack.add({
 })
 vim.pack.add({
 	{ src = "https://github.com/nyoom-engineering/oxocarbon.nvim" },
+	{ src = "https://github.com/windwp/nvim-autopairs" },
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim" },
 	{ src = "https://github.com/chomosuke/typst-preview.nvim" },
@@ -176,6 +177,8 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 require("nvim-tree").setup()
+
+require("nvim-autopairs").setup()
 
 -- require plugins and stuff
 require('java').setup()
