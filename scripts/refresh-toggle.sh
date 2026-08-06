@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 refresh=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .current_mode.refresh')
 

@@ -17,19 +17,26 @@ vim.keymap.set('n', '<leader><Tab>', ':Telescope find_files cwd=.<CR>')
 --global grep:
 vim.keymap.set('n', '<leader>S', ':Telescope live_grep<CR>')
 
+-- telescope:
+vim.keymap.set('n', '<leader>j', ':Telescope<CR>')
+
+-- marks
+vim.keymap.set('n', '<leader>m', ':Telescope marks<CR>')
+
+-- buffers
+vim.keymap.set('n', '<leader>b', ':Telescope buffers<CR>')
+
 -- find files
 vim.keymap.set('n', '<leader>s',
 	function()
 		-- TODO update this:
 		builtin.find_files({
 			search_dirs = {
-				'~/G12',
-				'~/projects',
+				'~/jault',
 				'~/Downloads',
+				'~/VMC',
 				'~/.config/nvim',
 				'~/.config/sway',
-				'~/.config/neovide',
-				'~/.config/kitty',
 				'~/scripts',
 				'~/.zshrc',
 				'/mnt/win/Users/burge/Documents/Personal-Projects/',

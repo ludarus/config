@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 BATTERY=$(< /sys/class/power_supply/BAT0/capacity)
 STATUS=$(< /sys/class/power_supply/BAT0/status)

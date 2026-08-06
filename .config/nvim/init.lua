@@ -10,3 +10,12 @@ require("plugins.keybinds")
 
 require("config.theme")
 require("config.neovide")
+
+-- keyboard layout stuff
+require("layout.active")
+
+if layout == "canary" then
+	require("layout.canary")()
+else
+	require("layout.qwerty")()
+end

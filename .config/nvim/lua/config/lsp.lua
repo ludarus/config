@@ -29,4 +29,5 @@ vim.lsp.config("pylsp", {
 })
 
 -- enabling languages for lsp
-vim.lsp.enable({ "pylsp", "jdtls", "tinymist", "lua_ls", "clangd", "html", "cssls", "tailwindcss", "ts_ls", "jsonls" })
+vim.lsp.enable({ "pylsp", "jdtls", "tinymist", "lua_ls", "clangd", "html", "cssls", "tailwindcss", "ts_ls", "jsonls",
+	"bashls" })

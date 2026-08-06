@@ -1,3 +1,32 @@
+#!/usr/bin/env bash
+
+case $1 in
+125)
+	echo "baud = 125kb"
+	BAUD=125000
+	;;
+
+250)
+	echo "baud = 250kb"
+	BAUD=250000
+	;;
+
+500)
+	echo "baud = 500kb"
+	BAUD=500000
+	;;
+
+670)
+	echo "baud = 666.66kb"
+	BAUD=666666
+	;;
+
+*)
+	echo "unknown baud, setting to 125kb"
+	BAUD=125000
+	;;
+esac
+
 sudo ip link set can0 down
-sudo ip link set can0 type can bitrate 1000000 sample-point 0.875
+sudo ip link set can0 type can bitrate $BAUD sample-point 0.875
 sudo ip link set can0 up

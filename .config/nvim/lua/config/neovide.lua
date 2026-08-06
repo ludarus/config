@@ -22,7 +22,10 @@ if vim.g.neovide then
 	-- vfx	
 	vim.g.neovide_cursor_vfx_mode = ""
 	-- vim.g.neovide_cursor_vfx_mode = "pixiedust"
-end
 
---setting fontsize for neovide
-vim.o.guifont = "JetBrainsMono Nerd Font Mono:h20"
+	-- setting fontsize
+	vim.o.guifont = "JetBrainsMono Nerd Font Mono:h20"
+
+	-- disabling progress bar
+	vim.g.neovide_progress_bar_enabled = false
+end

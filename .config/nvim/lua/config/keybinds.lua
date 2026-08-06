@@ -23,9 +23,9 @@ vim.keymap.set('n', '<leader>o', 'o<Esc>0"_Dk$')
 vim.keymap.set('n', '<leader>O', 'O<Esc>0"_Dj$')
 
 --open browser here
-vim.keymap.set('n', '<leader>b', ':Zb<CR>')
+vim.keymap.set('n', '<leader>z', ':Zb<CR>')
 --open html version of code here
-vim.keymap.set('n', '<leader>B', ':TOhtml<CR>:Zb<CR>:quit<CR>')
+vim.keymap.set('n', '<leader>Z', ':TOhtml<CR>:Zb<CR>:quit<CR>')
 -- live preview
 vim.keymap.set('n', '<leader>P', ':LivePreview start<CR>')
 --typst preview
@@ -38,3 +38,4 @@ vim.keymap.set('n', '<leader>E', ':LspTinymistExportPdf<CR>')
 vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
 vim.keymap.set('n', '<leader>a', vim.diagnostic.open_float)
 
+vim.keymap.set('n', '<leader>n', ':enew<CR>')
