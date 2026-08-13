@@ -1,4 +1,5 @@
 -- including modular files
+
 require("config.options")
 require("config.keybinds")
 require("config.commands")
@@ -19,3 +20,4 @@ if layout == "canary" then
 else
 	require("layout.qwerty")()
 end
+

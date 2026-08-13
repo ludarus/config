@@ -16,6 +16,10 @@
       "rev": "7ec78c21bd8f0b2b0b47043bb1e730c561647c72",
       "src": "https://github.com/sainnhe/edge"
     },
+    "everforest": {
+      "rev": "85a86eb62409e3ec88713bff3d1b9d7374e112e4",
+      "src": "https://github.com/sainnhe/everforest"
+    },
     "fastspell.nvim": {
       "rev": "c7343a923862330e46001a8e45f698fb9afac2b3",
       "src": "https://github.com/lucaSartore/fastspell.nvim"

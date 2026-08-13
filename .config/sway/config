@@ -2,6 +2,8 @@
 
 include ~/.config/sway/rules.conf
 include ~/.config/sway/variables.conf
+include ~/.config/sway/display.conf
+include ~/.config/sway/workspaces.conf
 include ~/.config/sway/startup.conf
 include ~/.config/sway/touchpad.conf
 include ~/.config/sway/fx.conf

@@ -24,6 +24,7 @@ alias nvid="neovide"
 alias ta="tmux a"
 alias tn="tmux new"
 alias n.="neovide ."
+alias tk="cat ~/.token"
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 

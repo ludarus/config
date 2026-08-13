@@ -39,3 +39,4 @@ vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
 vim.keymap.set('n', '<leader>a', vim.diagnostic.open_float)
 
 vim.keymap.set('n', '<leader>n', ':enew<CR>')
+

@@ -14,7 +14,7 @@ if vim.g.neovide then
 	vim.g.neovide_opacity = 0.5
 
 	-- fps
-	vim.g.neovide_refresh_rate = 60
+	vim.g.neovide_refresh_rate = 120
 
 	-- far scroll animations
 	vim.g.neovide_scroll_animation_far_lines = 20
@@ -28,4 +28,17 @@ if vim.g.neovide then
 
 	-- disabling progress bar
 	vim.g.neovide_progress_bar_enabled = false
+
+	-- zoom in and out keybinds
+	vim.keymap.set("n", "<C-+>", function()
+		vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.05
+	end)
+
+	vim.keymap.set("n", "<C-_>", function()
+		vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.05
+	end)
+
+	vim.keymap.set("n", "<C-0>", function()
+		vim.g.neovide_scale_factor = 1.0
+	end)
 end
