@@ -8,3 +8,21 @@ vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
 vim.api.nvim_set_hl(0, "LineNr", { bg = "none" })
 vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
 vim.api.nvim_set_hl(0, "LineNr", { fg = "#525252" })
+
+
+-- Inactive tabs
+vim.api.nvim_set_hl(0, "TabLine", {
+	fg = "#525252",
+	bg = "none",
+})
+
+-- Active tab
+vim.api.nvim_set_hl(0, "TabLineSel", {
+	fg = "#ffffff",
+	bg = "none",
+})
+
+-- Background of the rest of the tab bar
+vim.api.nvim_set_hl(0, "TabLineFill", {
+	bg = "none",
+})

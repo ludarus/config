@@ -39,6 +39,6 @@ vim.pack.add({
 
 	{ src = "https://github.com/ferplnat/truefalse.nvim" },
 
-	-- light theme for inverted colours
-	{ src = "https://github.com/sainnhe/everforest" },
+	-- git graph
+	{ src = "https://github.com/isakbm/gitgraph.nvim" },
 })

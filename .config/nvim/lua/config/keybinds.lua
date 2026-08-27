@@ -34,9 +34,11 @@ vim.keymap.set('n', '<leader>T', ':TypstPreview<CR>')
 --typst export as pdf
 vim.keymap.set('n', '<leader>E', ':LspTinymistExportPdf<CR>')
 
--- format doc
+-- format doc + lsp stuff
 vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
+
 vim.keymap.set('n', '<leader>a', vim.diagnostic.open_float)
+vim.keymap.set("n", "<leader>c", vim.lsp.buf.code_action, { desc = "Code Action" })
 
 vim.keymap.set('n', '<leader>n', ':enew<CR>')
 
