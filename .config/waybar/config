@@ -55,7 +55,7 @@
 	// power profile
 	"custom/tlp": {
 		"exec": "~/scripts/tlp-profile.sh",
-		"on-click": "~/.config/waybar/scripts/tlp-profile.sh toggle",
+		"on-click": "~/scripts/tlp-profile.sh toggle",
 		"interval": 2,
 		"tooltip": false
 	},

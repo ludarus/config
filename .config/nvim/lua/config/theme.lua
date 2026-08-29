@@ -12,7 +12,7 @@ vim.api.nvim_set_hl(0, "LineNr", { fg = "#525252" })
 
 -- Inactive tabs
 vim.api.nvim_set_hl(0, "TabLine", {
-	fg = "#525252",
+	fg = "#d0d0d0",
 	bg = "none",
 })
 
