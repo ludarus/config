@@ -1,23 +1,22 @@
 #!/usr/bin/env bash
 
 case "$1" in
-    toggle)
-        profile=$(sudo tlp-stat -m | cut -d/ -f1)
+toggle)
+	profile=$(sudo tlp-stat -m | cut -d/ -f1)
 
-        if [ "$profile" = "power-saver" ]; then
-            sudo tlp performance
-        else
-            sudo tlp power-saver
-        fi
-        exit
-        ;;
+	if [ "$profile" = "power-saver" ]; then
+		sudo tlp performance
+	else
+		sudo tlp power-saver
+	fi
+	;;
 esac
 
 profile=$(sudo tlp-stat -m | cut -d/ -f1)
 
 case "$profile" in
-    performance) echo "🔥" ;;
-    balanced)    echo "" ;;
-    power-saver) echo "" ;;
-    *)            echo "?" ;;
+performance) echo "🔥" ;;
+balanced) echo "" ;;
+power-saver) echo "" ;;
+*) echo "?" ;;
 esac

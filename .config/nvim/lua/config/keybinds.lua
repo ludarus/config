@@ -1,6 +1,9 @@
 -- remove f1 button because it's annoying
 vim.api.nvim_set_keymap("n", "<F1>", "<Nop>", { noremap = true, silent = true })
 
+-- copy and paste
+vim.keymap.set({ "n", "v" }, "<C-c>", '"+y')
+
 -- leader key
 vim.g.mapleader = " "
 

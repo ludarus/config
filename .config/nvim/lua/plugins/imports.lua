@@ -41,4 +41,7 @@ vim.pack.add({
 
 	-- git graph
 	{ src = "https://github.com/isakbm/gitgraph.nvim" },
+
+	-- lsp diagnostics
+	{ src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim" },
 })

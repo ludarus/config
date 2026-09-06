@@ -27,19 +27,21 @@ vim.keymap.set('n', '<leader>m', ':Telescope marks<CR>')
 vim.keymap.set('n', '<leader>b', ':Telescope buffers<CR>')
 
 -- find files
-vim.keymap.set('n', '<leader>s',
-	function()
-		-- TODO update this:
-		builtin.find_files({
-			search_dirs = {
-				'~/jault',
-				'~/Downloads',
-				'~/VMC',
-				'~/.config/nvim',
-				'~/.config/sway',
-				'~/scripts',
-				'~/.zshrc',
-				'/mnt/win/Users/burge/Documents/Personal-Projects/',
-			}
-		})
-	end)
+vim.keymap.set('n', '<leader>s', function()
+	builtin.find_files({
+		search_dirs = {
+			vim.fn.expand('~/projects/leet'),
+			vim.fn.expand('~/projects/py'),
+			vim.fn.expand('~/projects/c'),
+			vim.fn.expand('~/jault/2026fall'),
+			vim.fn.expand('~/jault/journal'),
+			vim.fn.expand('~/.config/nvim'),
+			vim.fn.expand('~/.config/sway'),
+			vim.fn.expand('~/.config/waybar'),
+			vim.fn.expand('~/zmk-config/config'),
+			vim.fn.expand('~/scripts'),
+		},
+		hidden = true,
+		no_ignore = true,
+	})
+end)

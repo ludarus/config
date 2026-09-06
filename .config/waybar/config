@@ -56,7 +56,7 @@
 	"custom/tlp": {
 		"exec": "~/scripts/tlp-profile.sh",
 		"on-click": "~/scripts/tlp-profile.sh toggle",
-		"interval": 2,
+		"interval": 1,
 		"tooltip": false
 	},
 	"sway/mode": {

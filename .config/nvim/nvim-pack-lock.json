@@ -117,6 +117,10 @@
       "rev": "5255aa27c422de944791318024167ad5d40aad20",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
+    "tiny-inline-diagnostic.nvim": {
+      "rev": "6264451f14119d63a52580e5198d6baf8518b0b2",
+      "src": "https://github.com/rachartier/tiny-inline-diagnostic.nvim"
+    },
     "tinymist": {
       "rev": "2898809b7cd99b7651d032564ee1477aa1b27226",
       "src": "https://github.com/Myriad-Dreamin/tinymist"
