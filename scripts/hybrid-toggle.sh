@@ -11,8 +11,10 @@ True)
 
 	# switching grub config
 	sudo cp /etc/default/grubDGPU /etc/default/grub
-	# switching image
-	sudo cp /boot/initramfs-linux-nvidia.img /boot/initramfs-linux.img
+	# switching mkinitcpio config
+	sudo cp /etc/mkinitcpio-nvidia.conf /etc/mkinitcpio.conf
+	# mkinitcpio
+	mkinitcpio -P
 	# regenerating grub config
 	sudo grub-mkconfig -o /boot/grub/grub.cfg
 	;;
@@ -25,8 +27,10 @@ False)
 
 	# switching grub config
 	sudo cp /etc/default/grubIGPU /etc/default/grub
-	# switching image
-	sudo cp /boot/initramfs-linux-hybrid.img /boot/initramfs-linux.img
+	# switching mkinitcpio config
+	sudo cp /etc/mkinitcpio-hybrid.conf /etc/mkinitcpio.conf
+	# mkinitcpio
+	mkinitcpio -P
 	# regenerating grub config
 	sudo grub-mkconfig -o /boot/grub/grub.cfg
 	;;
