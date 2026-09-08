@@ -18,6 +18,9 @@ vim.keymap.set('n', '<leader>H', ':HexToggle<CR>')
 -- tree
 vim.keymap.set('n', '<leader>d', ':NvimTreeToggle<CR>')
 
+-- open to downloads
+vim.keymap.set('n', '<leader>D', ':Oil ~/Downloads<CR>')
+
 -- spellcheck
 vim.keymap.set('n', '<leader>p', ':set spell<CR>')
 

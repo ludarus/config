@@ -38,6 +38,7 @@ vim.keymap.set('n', '<leader>s', function()
 			vim.fn.expand('~/.config/nvim'),
 			vim.fn.expand('~/.config/sway'),
 			vim.fn.expand('~/.config/waybar'),
+			vim.fn.expand('~/.config/swaync'),
 			vim.fn.expand('~/zmk-config/config'),
 			vim.fn.expand('~/scripts'),
 		},

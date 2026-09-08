@@ -1,2 +1,6 @@
 
-@theme "/usr/share/rofi/themes/material.rasi"
+//@theme "/usr/share/rofi/themes/material.rasi"
+
+//@theme "/home/joe/.local/share/rofi/themes/spotlight.rasi"
+
+@theme "/home/joe/.local/share/rofi/themes/spotlight-dark.rasi"

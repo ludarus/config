@@ -16,7 +16,7 @@
 		"network",
 		"cpu",
 		"memory",
-		// "idle_inhibitor",
+		"idle_inhibitor",
 		"pulseaudio",
 		"backlight",
 		"battery",
@@ -168,7 +168,7 @@
 		"return-type": "json",
 		"interval": 1,
 		"exec": "echo '{\"class\": \"recording\"}'",
-		"exec-if": "pgrep wf-recorder",
+		"exec-if": "pgrep wf-recorder"
 	},
 	"custom/audiorec": {
 		"format": "♬ Rec",
@@ -176,6 +176,13 @@
 		"return-type": "json",
 		"interval": 1,
 		"exec": "echo '{\"class\": \"audio recording\"}'",
-		"exec-if": "pgrep ffmpeg",
+		"exec-if": "pgrep ffmpeg"
 	},
+	"custom/idle": {
+		"format": "{}",
+		"return-type": "json",
+		"exec": "~/.config/waybar/scripts/idle-toggle",
+		"interval": 2,
+		"on-click": "~/.config/waybar/scripts/idle-toggle click"
+	}
 }
