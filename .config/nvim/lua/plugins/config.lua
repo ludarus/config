@@ -111,6 +111,14 @@ require "oil".setup({
 	},
 
 	prompt_save_on_select_new_entry = true,
+
+	-- oil blocks the UI on a synchronous workspace/willRenameFiles request for
+	-- every attached client that supports it (ts_ls does) on each rename/move/
+	-- delete. The default 1000ms means a busy server can freeze nvim for a full
+	-- second per file operation.
+	lsp_file_methods = {
+		timeout_ms = 200,
+	},
 })
 
 -- require "fastspell".setup()

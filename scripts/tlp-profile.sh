@@ -5,7 +5,7 @@ toggle)
 	profile=$(sudo tlp-stat -m | cut -d/ -f1)
 
 	if [ "$profile" = "power-saver" ]; then
-		sudo tlp performance
+		sudo tlp balanced
 	else
 		sudo tlp power-saver
 	fi

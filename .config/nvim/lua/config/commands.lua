@@ -1,9 +1,31 @@
 -- autosave command
 vim.o.autowriteall = true
-vim.api.nvim_create_autocmd({ 'InsertLeavePre', 'TextChanged', 'TextChangedP' }, {
+
+-- Only autosave real, named, writable file buffers: skips oil:// buffers
+-- (buftype = "acwrite", where a write means "apply these filesystem changes"),
+-- terminals, quickfix, help, etc.
+-- TextChangedP is excluded on purpose: it fires on every keystroke while the
+-- completion popup is open, so it meant a full write + LSP didSave per character.
+local function autosave(buf)
+	if
+		vim.bo[buf].buftype ~= ''
+		or not vim.bo[buf].modifiable
+		or vim.bo[buf].readonly
+		or not vim.bo[buf].modified
+		or vim.api.nvim_buf_get_name(buf) == ''
+	then
+		return
+	end
+	vim.api.nvim_buf_call(buf, function()
+		vim.cmd('silent! lockmarks write')
+	end)
+end
+
+vim.api.nvim_create_autocmd({ 'InsertLeavePre', 'TextChanged' }, {
+	group = vim.api.nvim_create_augroup('autosave', { clear = true }),
 	pattern = '*',
-	callback = function()
-		vim.cmd('silent! write')
+	callback = function(ev)
+		autosave(ev.buf)
 	end
 })
 

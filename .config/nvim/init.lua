@@ -3,9 +3,11 @@
 require("config.options")
 require("config.keybinds")
 require("config.commands")
-require("config.lsp")
 
 require("plugins.imports")
+-- after plugins.imports: config.lsp reads the lsp/*.lua definitions that
+-- nvim-lspconfig puts on the runtimepath
+require("config.lsp")
 require("plugins.config")
 require("plugins.keybinds")
 
