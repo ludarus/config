@@ -20,6 +20,27 @@ vim.keymap.set('n', '<leader>S', ':Telescope live_grep<CR>')
 -- telescope:
 vim.keymap.set('n', '<leader>j', ':Telescope<CR>')
 
+--hex mode
+vim.keymap.set('n', '<leader>H', ':HexToggle<CR>')
+
+-- tree
+vim.keymap.set('n', '<leader>D', ':NvimTreeToggle<CR>')
+
+--open html version of code here
+vim.keymap.set('n', '<leader>Z', ':TOhtml<CR>:Zb<CR>:quit<CR>')
+-- live preview
+vim.keymap.set('n', '<leader>P', ':LivePreview start<CR>')
+--typst preview
+vim.keymap.set('n', '<leader>T', ':TypstPreview<CR>')
+
+--typst export as pdf
+vim.keymap.set('n', '<leader>E', ':LspTinymistExportPdf<CR>')
+
+-- fuzzy directory picker (same list as the kitty Ctrl+F picker) -> :tcd
+vim.keymap.set('n', '<leader>d', function()
+	require('config.fcd').pick_dir()
+end, { desc = 'Fuzzy cd to a configured directory' })
+
 -- marks
 vim.keymap.set('n', '<leader>m', ':Telescope marks<CR>')
 

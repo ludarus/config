@@ -12,15 +12,6 @@ vim.keymap.set('n', '<leader>w', ':write<CR>')
 vim.keymap.set('n', '<leader>q', ':quit<CR>')
 vim.keymap.set('n', '<leader>t', ':tabnew %<CR>')
 
---hex mode
-vim.keymap.set('n', '<leader>H', ':HexToggle<CR>')
-
--- tree
-vim.keymap.set('n', '<leader>d', ':NvimTreeToggle<CR>')
-
--- open to downloads
-vim.keymap.set('n', '<leader>D', ':Oil ~/Downloads<CR>')
-
 -- spellcheck
 vim.keymap.set('n', '<leader>p', ':set spell<CR>')
 
@@ -30,16 +21,6 @@ vim.keymap.set('n', '<leader>O', 'O<Esc>0"_Dj$')
 
 --open browser here
 vim.keymap.set('n', '<leader>z', ':Zb<CR>')
---open html version of code here
-vim.keymap.set('n', '<leader>Z', ':TOhtml<CR>:Zb<CR>:quit<CR>')
--- live preview
-vim.keymap.set('n', '<leader>P', ':LivePreview start<CR>')
---typst preview
-vim.keymap.set('n', '<leader>T', ':TypstPreview<CR>')
-
---typst export as pdf
-vim.keymap.set('n', '<leader>E', ':LspTinymistExportPdf<CR>')
-
 -- format doc + lsp stuff
 vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
 
