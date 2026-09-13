@@ -20,6 +20,7 @@
 !.config/tlp/
 !scripts/
 !.config/systemd/
+!.config/fcd/
 
 !.config/kitty/**
 !.config/neovide/**
@@ -30,6 +31,7 @@
 !.config/swaylock/**
 !.config/waybar/**
 !.config/systemd/**
+!.config/fcd/**
 !.config/zen/b3zdx82h.Default (release)/chrome/**
 !.config/zen/b3zdx82h.Default (release)/prefs.js
 !.config/tlp/**

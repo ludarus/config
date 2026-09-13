@@ -28,3 +28,33 @@ alias tk="cat ~/.token"
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# --- fuzzy directory finder (fd + fzf) ---
+# The directory list lives in a shared config file (single source of truth),
+# also used by the Ctrl+F kitty hotkey. Edit that file to change the list.
+: ${FCD_CONF:=$HOME/.config/fcd/dirs.conf}
+
+# Fuzzy-pick a directory from the configured roots and cd into it.
+fzf-cd() {
+  local dir roots=() line
+  # read config: skip blank/comment lines, expand ~, keep existing dirs
+  while IFS= read -r line; do
+    [[ -z "$line" || "$line" == \#* ]] && continue
+    line=${~line}
+    [[ -d "$line" ]] && roots+=("$line")
+  done < "$FCD_CONF"
+  (( ${#roots} )) || { echo "fzf-cd: no valid dirs in $FCD_CONF" >&2; return 1; }
+
+  # include the roots themselves plus their immediate subdirectories
+  dir=$( { printf '%s\n' $roots; \
+           fd --type d --hidden --follow --no-ignore --max-depth 1 \
+              --exclude .git --exclude node_modules --exclude .cache \
+              . $roots 2>/dev/null; } \
+         | sed "s|^$HOME|~|" | fzf --prompt="cd > " --reverse --no-mouse )
+  [[ -n "$dir" ]] && { dir=${~dir}; cd "$dir"; }
+}
+
+# NOTE: Ctrl+F is handled natively by kitty (see kitty.conf) which runs the
+# picker in a clean overlay window to avoid dropped keypresses. Both Ctrl+F
+# and the `fcd` command read the same list from $FCD_CONF.
+alias fcd="fzf-cd"
+

@@ -40,6 +40,8 @@ esac
 
 if [[ "${1:-}" == "-r" ]]; then
 	sudo reboot
+elif [[ "${1:-}" == "-s" ]]; then
+	sudo shutdown now
 fi
 
 echo "Changes will apply on next reboot"

@@ -7,7 +7,7 @@ echo "$refresh"
 case "$refresh" in
 60000)
 	swaymsg output eDP-1 mode 2560x1600@240Hz
-	swaymsg output HDMI-A-1 mode 3840x2160@120Hz
+	swaymsg output HDMI-A-1 mode 3840x2160@240Hz
 	;;
 119999)
 	swaymsg output eDP-1 mode 2560x1600@60Hz
