@@ -11,11 +11,23 @@ end, { expr = true })
 local builtin = require('telescope.builtin')
 
 
--- vim.keymap.set('n', '<leader><Tab>', ':Telescope<CR>')
-vim.keymap.set('n', '<leader><Tab>', ':Telescope find_files cwd=.<CR>')
+-- find files in the current working directory (cwd, incl. tcd set by <leader>d),
+-- showing hidden files and ignoring .gitignore (home dir is a gitignore'd dotfiles repo)
+vim.keymap.set('n', '<leader><Tab>', function()
+	builtin.find_files({
+		cwd = vim.fn.getcwd(),
+		hidden = true,
+		no_ignore = true,
+	})
+end)
 
---global grep:
-vim.keymap.set('n', '<leader>S', ':Telescope live_grep<CR>')
+--global grep in cwd, ignoring .gitignore:
+vim.keymap.set('n', '<leader>S', function()
+	builtin.live_grep({
+		cwd = vim.fn.getcwd(),
+		additional_args = { '--hidden', '--no-ignore' },
+	})
+end)
 
 -- telescope:
 vim.keymap.set('n', '<leader>j', ':Telescope<CR>')
@@ -60,6 +72,7 @@ vim.keymap.set('n', '<leader>s', function()
 			vim.fn.expand('~/.config/sway'),
 			vim.fn.expand('~/.config/waybar'),
 			vim.fn.expand('~/.config/fcd'),
+			vim.fn.expand('~/.config/sioyek'),
 			vim.fn.expand('~/.config/swaync'),
 			vim.fn.expand('~/zmk-config/config'),
 			vim.fn.expand('~/scripts'),

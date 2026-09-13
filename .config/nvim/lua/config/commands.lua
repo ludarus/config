@@ -35,8 +35,12 @@ vim.api.nvim_create_autocmd({ 'InsertLeavePre', 'TextChanged' }, {
 vim.api.nvim_create_autocmd("BufReadCmd", {
 	pattern = "*.pdf",
 	callback = function()
-		local filename = vim.fn.shellescape(vim.api.nvim_buf_get_name(0))
-		vim.cmd("silent !sioyek " .. filename .. " &")
+		local filename = vim.api.nvim_buf_get_name(0)
+		-- launch fully detached so sioyek survives nvim deleting this buffer
+		-- (or exiting entirely when the pdf was the only/first file). the old
+		-- `silent !sioyek ... &` made sioyek a child of a short-lived shell,
+		-- so it died with nvim -> "opens and closes".
+		vim.fn.jobstart({ "sioyek", filename }, { detach = true })
 		vim.cmd("let tobedeleted = bufnr('%') | b# | exe \"bd! \" . tobedeleted")
 	end
 })

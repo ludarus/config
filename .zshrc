@@ -23,8 +23,9 @@ alias zb="zen-browser"
 alias nvid="neovide"
 alias ta="tmux a"
 alias tn="tmux new"
-alias n.="neovide ."
+alias n.="nvim ."
 alias tk="cat ~/.token"
+alias kc="kiro-cli"
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
