@@ -4,6 +4,10 @@
       "rev": "539d73def39c9172b4d4d769f14090e08f37b29d",
       "src": "https://github.com/romgrk/barbar.nvim"
     },
+    "bufferline.nvim": {
+      "rev": "655133c3b4c3e5e05ec549b9f8cc2894ac6f51b3",
+      "src": "https://github.com/akinsho/bufferline.nvim"
+    },
     "coc.nvim": {
       "rev": "e62e589c4a65c2047741946299f2406217b6ce13",
       "src": "https://github.com/neoclide/coc.nvim"

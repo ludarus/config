@@ -59,3 +59,13 @@ fzf-cd() {
 # and the `fcd` command read the same list from $FCD_CONF.
 alias fcd="fzf-cd"
 
+
+# --- zsh-autosuggestions (fish-like inline preview) ---
+# Install with: sudo pacman -S zsh-autosuggestions
+# Accept full suggestion with Right arrow / End; accept one word with Ctrl+Right or Alt+F.
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+if [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi

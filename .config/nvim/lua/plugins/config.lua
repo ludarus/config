@@ -140,7 +140,7 @@ require "typst-preview".setup({
 
 	port = 0,
 	host = '127.0.0.1',
-	invert_colors = 'never',
+	invert_colors = 'auto',
 	dependencies_bin = {
 		['tinymist'] = nil,
 		['websocat'] = nil,
