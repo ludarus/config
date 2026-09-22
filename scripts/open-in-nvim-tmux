@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# open-in-nvim-tmux — open a file/folder in nvim, running inside tmux, in a new
+# kitty window. Attaches to the most-recently-used tmux session (creates one if
+# none exists) and opens the target in a fresh tmux window there.
+#
+# Used as the XDG handler for text files and directories.
+set -uo pipefail   # NOTE: no -e; we handle tmux failures explicitly below.
+
+target="${1:-}"
+[[ -z "$target" ]] && { echo "usage: open-in-nvim-tmux <path>" >&2; exit 1; }
+
+# Most-recently-attached existing tmux session (empty if none).
+last_session=""
+if tmux has-session 2>/dev/null; then
+  last_session=$(
+    tmux list-sessions -F '#{session_last_attached} #{session_name}' 2>/dev/null \
+      | sort -rn | awk 'NR==1{print $2}'
+  )
+fi
+
+if [[ -n "$last_session" ]]; then
+  # Create a new window at the NEXT free index (trailing ':' lets tmux choose),
+  # capture its id, run nvim there, then attach and select that window.
+  win_id=$(tmux new-window -d -t "${last_session}:" -P -F '#{window_id}' "nvim ${target@Q}" 2>/dev/null) || win_id=""
+  if [[ -n "$win_id" ]]; then
+    inner="tmux select-window -t ${win_id@Q} \; attach-session -t ${last_session@Q}"
+  else
+    # Fallback: couldn't add a window; just attach to the session.
+    inner="tmux attach-session -t ${last_session@Q}"
+  fi
+else
+  # No session exists: create one running nvim on the target.
+  inner="tmux new-session -s main nvim ${target@Q}"
+fi
+
+exec kitty -- bash -lc "$inner"
