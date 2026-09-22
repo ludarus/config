@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+# sync-search-dirs — read the fcd directory list and write the `search_dirs`
+# array into elephant's files.toml, then restart elephant so file search uses it.
+#
+# The fcd list ($FCD_CONF, default ~/.config/fcd/dirs.conf) is the SINGLE SOURCE
+# OF TRUTH, shared with the `fcd`/Ctrl+F directory picker. One directory per
+# line; blank lines and # comments ignored; ~ and $HOME expanded.
+set -euo pipefail
+
+DIRS_LIST="${FCD_CONF:-$HOME/.config/fcd/dirs.conf}"
+FILES_TOML="${FILES_TOML:-$HOME/.config/elephant/files.toml}"
+
+if [[ ! -f "$DIRS_LIST" ]]; then
+  echo "sync-search-dirs: list not found: $DIRS_LIST" >&2
+  exit 1
+fi
+if [[ ! -f "$FILES_TOML" ]]; then
+  echo "sync-search-dirs: elephant files config not found: $FILES_TOML" >&2
+  echo "  generate it with: elephant generate config files" >&2
+  exit 1
+fi
+
+# Build a TOML array from the list: ['path1', 'path2', ...]
+entries=()
+while IFS= read -r line; do
+  line="${line#"${line%%[![:space:]]*}"}"   # ltrim
+  line="${line%"${line##*[![:space:]]}"}"   # rtrim
+  [[ -z "$line" || "$line" == \#* ]] && continue
+  line="${line/#\~/$HOME}"                   # expand leading ~
+  line="${line//\$HOME/$HOME}"               # expand $HOME
+  [[ -d "$line" ]] || { echo "sync-search-dirs: skipping missing dir: $line" >&2; continue; }
+  entries+=("'$line'")
+done < "$DIRS_LIST"
+
+joined=""
+if ((${#entries[@]})); then
+  joined=$(IFS=', '; echo "${entries[*]}")
+fi
+new_line="search_dirs = [${joined}]"
+
+if grep -qE '^search_dirs[[:space:]]*=' "$FILES_TOML"; then
+  awk -v repl="$new_line" '
+    /^search_dirs[[:space:]]*=/ { print repl; next }
+    { print }
+  ' "$FILES_TOML" > "$FILES_TOML.tmp" && mv "$FILES_TOML.tmp" "$FILES_TOML"
+else
+  printf '%s\n' "$new_line" >> "$FILES_TOML"
+fi
+
+echo "sync-search-dirs: wrote ${#entries[@]} dir(s) to $FILES_TOML"
+echo "  $new_line"
+
+if systemctl --user is-active --quiet elephant; then
+  systemctl --user restart elephant
+  echo "sync-search-dirs: restarted elephant"
+fi
