@@ -1,1 +1,1 @@
-arch + swayfx + x86 laptop
+arch + hypr + x86 laptop

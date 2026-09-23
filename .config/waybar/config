@@ -6,10 +6,10 @@
 	"margin-bottom": 0,
 	"margin-top": 0,
 	"modules-left": [
-		"sway/workspaces"
+		"hyprland/workspaces"
 	],
 	"modules-center": [
-		"sway/window"
+		"hyprland/window"
 	],
 	"modules-right": [
 		"tray",
@@ -59,7 +59,7 @@
 		"interval": 1,
 		"tooltip": false
 	},
-	"sway/mode": {
+	"hyprland/submap": {
 		"format": "<span style=\"italic\">{}</span>"
 	},
 	"tray": {
@@ -177,12 +177,5 @@
 		"interval": 1,
 		"exec": "echo '{\"class\": \"audio recording\"}'",
 		"exec-if": "pgrep ffmpeg"
-	},
-	"custom/idle": {
-		"format": "{}",
-		"return-type": "json",
-		"exec": "~/.config/waybar/scripts/idle-toggle",
-		"interval": 2,
-		"on-click": "~/.config/waybar/scripts/idle-toggle click"
 	}
 }

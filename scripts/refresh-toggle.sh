@@ -1,21 +1,13 @@
 #!/usr/bin/env bash
+# Toggle the laptop display (eDP-1) between 60 Hz and 240 Hz.
+set -euo pipefail
 
-refresh=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .current_mode.refresh')
+rate=$(hyprctl monitors -j | jq -r '.[] | select(.name=="eDP-1") | .refreshRate')
 
-echo "$refresh"
+if [ "${rate%.*}" -ge 180 ]; then
+	target=60
+else
+	target=240
+fi
 
-case "$refresh" in
-60000)
-	swaymsg output eDP-1 mode 2560x1600@240Hz
-	swaymsg output HDMI-A-1 mode 3840x2160@240Hz
-	;;
-119999)
-	swaymsg output eDP-1 mode 2560x1600@60Hz
-	swaymsg output HDMI-A-1 mode 3840x2160@60Hz
-	;;
-240000)
-	swaymsg output eDP-1 mode 2560x1600@60Hz
-	swaymsg output HDMI-A-1 mode 3840x2160@60Hz
-	;;
-*) echo "idk" ;;
-esac
+hyprctl eval "hl.monitor({ output = \"eDP-1\", mode = \"2560x1600@${target}\", position = \"3840x0\", scale = 1 })"

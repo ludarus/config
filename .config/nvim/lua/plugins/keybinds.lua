@@ -70,6 +70,7 @@ vim.keymap.set('n', '<leader>s', function()
 			vim.fn.expand('~/jault/journal'),
 			vim.fn.expand('~/.config/nvim'),
 			vim.fn.expand('~/.config/sway'),
+			vim.fn.expand('~/.config/hypr'),
 			vim.fn.expand('~/.config/waybar'),
 			vim.fn.expand('~/.config/fcd'),
 			vim.fn.expand('~/.config/sioyek'),

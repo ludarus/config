@@ -14,8 +14,16 @@ require("nvim-tree").setup()
 
 require("nvim-autopairs").setup()
 
--- require plugins and stuff
-require('java').setup()
+-- Lazy-load nvim-java only when a Java file is opened (saves ~20ms at startup).
+local nvim_java_group = vim.api.nvim_create_augroup("nvim-java-lazy", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "java" },
+	once = true,
+	group = nvim_java_group,
+	callback = function()
+		require('java').setup()
+	end,
+})
 
 require('truefalse').setup({
 	keymap = '<Leader>g'

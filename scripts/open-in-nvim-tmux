@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-# open-in-nvim-tmux — open a file/folder in nvim, running inside tmux, in a new
-# kitty window. Attaches to the most-recently-used tmux session (creates one if
-# none exists) and opens the target in a fresh tmux window there.
+# open-in-nvim-tmux — open a file/folder in nvim, running inside tmux.
+# Always opens the target in a NEW tmux window in the most-recently-used tmux
+# session (creates one if none exists). Only opens a new kitty window if a
+# kitty window is not already focused; if one is, it reuses that kitty by
+# switching it to the newly created tmux window.
 #
 # Used as the XDG handler for text files and directories.
 set -uo pipefail   # NOTE: no -e; we handle tmux failures explicitly below.
@@ -20,9 +22,24 @@ fi
 
 if [[ -n "$last_session" ]]; then
   # Create a new window at the NEXT free index (trailing ':' lets tmux choose),
-  # capture its id, run nvim there, then attach and select that window.
+  # capture its id, and run nvim there. Detached so we can decide below whether
+  # to reuse a focused kitty or open a new one.
   win_id=$(tmux new-window -d -t "${last_session}:" -P -F '#{window_id}' "nvim ${target@Q}" 2>/dev/null) || win_id=""
+
+  # Is a kitty window currently focused? If so, reuse it instead of opening a
+  # new kitty. The focused kitty is already attached to the tmux server, so
+  # just switching its active window surfaces the new tmux window in place.
+  focused_class=$(hyprctl activewindow -j 2>/dev/null | jq -r '.class // empty' 2>/dev/null)
+
   if [[ -n "$win_id" ]]; then
+    if [[ "$focused_class" == "kitty" ]]; then
+      # Reuse the focused kitty: select the new window in its session. No new
+      # kitty window is opened.
+      tmux select-window -t "$win_id" 2>/dev/null
+      exit 0
+    fi
+    # Kitty is not focused: open a new kitty attached to the session on the
+    # newly created window.
     inner="tmux select-window -t ${win_id@Q} \; attach-session -t ${last_session@Q}"
   else
     # Fallback: couldn't add a window; just attach to the session.
