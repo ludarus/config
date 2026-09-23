@@ -1,0 +1,91 @@
+# Walker configuration
+# Theme ported from rofi spotlight-dark
+theme = "spotlight-dark"
+
+close_when_open = true
+click_to_close = true
+selection_wrap = true
+exact_search_prefix = "'"
+# Keep keyboard focus on Walker when it opens (otherwise you have to move the
+# mouse over it before typing works under some compositors).
+force_keyboard_focus = true
+
+# Navigation keybinds. Defaults are Down/Up; add Ctrl+N / Ctrl+P (emacs-style).
+[keybinds]
+next = ["Down", "ctrl n"]
+previous = ["Up", "ctrl p"]
+
+[providers]
+# Default query set: apps, calc, runner, websearch
+default = ["desktopapplications", "calc", "runner", "websearch"]
+# When the input is empty, show installed applications
+empty = ["desktopapplications"]
+max_results = 6
+
+# Override desktopapplications actions so they don't collide with the nav keys:
+# - pin/unpin moved from `ctrl p` (now = previous) to `ctrl Return`
+# - new_instance moved off `ctrl Return` to `ctrl shift Return`
+# - pinup/pindown moved off `ctrl n`/`ctrl m` to `ctrl shift k`/`ctrl shift j`
+[providers.actions]
+desktopapplications = [
+  { action = "start", default = true, bind = "Return" },
+  { action = "start:keep", label = "open+next", bind = "shift Return", after = "KeepOpen" },
+  { action = "new_instance", label = "new instance", bind = "ctrl shift Return" },
+  { action = "new_instance:keep", label = "new+next", bind = "ctrl alt Return", after = "KeepOpen" },
+  { action = "pin", bind = "ctrl Return", after = "AsyncReload" },
+  { action = "unpin", bind = "ctrl Return", after = "AsyncReload" },
+  { action = "pinup", bind = "ctrl shift k", after = "AsyncReload" },
+  { action = "pindown", bind = "ctrl shift j", after = "AsyncReload" },
+]
+
+# Prefixes to jump directly to a provider
+[[providers.prefixes]]
+prefix = ";"
+provider = "providerlist"
+
+[[providers.prefixes]]
+prefix = ">"
+provider = "runner"
+
+[[providers.prefixes]]
+prefix = "/"
+provider = "files"
+
+[[providers.prefixes]]
+prefix = "."
+provider = "symbols"
+
+[[providers.prefixes]]
+prefix = "="
+provider = "calc"
+
+[[providers.prefixes]]
+prefix = "@"
+provider = "websearch"
+
+[[providers.prefixes]]
+prefix = ":"
+provider = "clipboard"
+
+[[providers.prefixes]]
+prefix = "$"
+provider = "windows"
+
+# Named provider sets, launched via `walker --set <name>`
+# Schema: each set has `default` (used when querying) and `empty` (used when
+# input is empty), both arrays of provider names.
+[providers.sets.drun]
+default = ["desktopapplications"]
+empty = ["desktopapplications"]
+
+[providers.sets.run]
+default = ["runner"]
+empty = ["runner"]
+
+[providers.sets.window]
+default = ["windows"]
+empty = ["windows"]
+
+[providers.sets.ssh]
+default = ["menus:ssh"]
+empty = ["menus:ssh"]

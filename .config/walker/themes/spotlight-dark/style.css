@@ -1,0 +1,162 @@
+/* Spotlight-dark theme for Walker, ported from rofi spotlight-dark.rasi */
+/* Colors from rofi: bg0 #00000066, accent bg2 #dd71c4, fg0 #DEDEDE, fg1 #FFFFFF, sep #7E7E7E80 */
+
+@define-color window_bg_color rgba(0, 0, 0, 0.4);
+@define-color accent_bg_color #dd71c4;
+@define-color theme_fg_color #DEDEDE;
+@define-color theme_fg_bright #FFFFFF;
+@define-color separator_color rgba(126, 126, 126, 0.5);
+@define-color error_bg_color #C34043;
+@define-color error_fg_color #DCD7BA;
+
+* {
+  all: unset;
+  font-family: "Montserrat";
+}
+
+scrollbar {
+  opacity: 0;
+}
+
+.normal-icons {
+  -gtk-icon-size: 20px;
+}
+
+.large-icons {
+  -gtk-icon-size: 32px;
+}
+
+/* Main window: translucent black, wide, rounded like rofi (16px) */
+/* GTK4 CSS: min-width forces the fixed 1000px width (max-width is not a valid
+   GTK property). Walker centers the box, so this reproduces rofi's width: 1000. */
+.box-wrapper {
+  min-width: 1000px;
+  background: @window_bg_color;
+  border-radius: 16px;
+  border: 1px solid @separator_color;
+  padding: 0;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.35), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+/* Search input row: large font like rofi inputbar (Montserrat 20) */
+.search-container {
+  border-radius: 0;
+}
+
+.input {
+  background: transparent;
+  caret-color: @theme_fg_bright;
+  color: @theme_fg_bright;
+  font-size: 24px;
+  padding: 14px 18px;
+}
+
+.input placeholder {
+  color: @theme_fg_color;
+  opacity: 0.5;
+}
+
+.input selection {
+  background: @accent_bg_color;
+  color: @theme_fg_bright;
+}
+
+/* Separator under the input, matching rofi's top-border on listview */
+/* No min-height: the list sizes to its content so the window grows/shrinks
+   with the number of results. max-height caps it so large result sets scroll
+   instead of running off screen (~10 rows at ~46px each). */
+.list {
+  color: @theme_fg_color;
+  border-top: 1px solid @separator_color;
+  padding: 4px;
+  max-height: 460px;
+}
+
+.content-container {
+}
+
+/* List rows */
+.item-box {
+  border-radius: 10px;
+  padding: 8px 14px;
+  color: @theme_fg_color;
+}
+
+.item-text {
+  color: @theme_fg_color;
+}
+
+/* Selected row: pink accent bg, white text (rofi element selected) */
+child:selected .item-box,
+row:selected .item-box {
+  background: @accent_bg_color;
+  color: @theme_fg_bright;
+}
+
+child:selected .item-text,
+row:selected .item-text,
+child:selected .item-subtext,
+row:selected .item-subtext {
+  color: @theme_fg_bright;
+}
+
+.item-subtext {
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.item-quick-activation {
+  background: alpha(@accent_bg_color, 0.25);
+  border-radius: 5px;
+  padding: 8px;
+}
+
+.placeholder,
+.elephant-hint,
+.preview-box {
+  color: @theme_fg_color;
+}
+
+/* Provider-specific tweaks */
+.calc .item-text {
+  font-size: 24px;
+}
+
+.symbols .item-image {
+  font-size: 24px;
+}
+
+.providerlist .item-subtext {
+  font-size: unset;
+  opacity: 0.75;
+}
+
+.preview {
+  border: 1px solid @separator_color;
+  border-radius: 10px;
+  color: @theme_fg_color;
+}
+
+/* Keybind hints along the bottom */
+.keybinds {
+  padding: 10px;
+  border-top: 1px solid @separator_color;
+  font-size: 12px;
+  color: @theme_fg_color;
+}
+
+.keybind-button {
+  opacity: 0.5;
+}
+
+.keybind-label {
+  padding: 2px 4px;
+  border-radius: 4px;
+  border: 1px solid @theme_fg_color;
+}
+
+.error {
+  padding: 10px;
+  background: @error_bg_color;
+  color: @error_fg_color;
+}

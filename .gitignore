@@ -17,6 +17,7 @@
 !.config/swaylock/
 !.config/hypr/
 !.config/waybar/
+!.config/walker/
 !.config/zen/b3zdx82h.Default (release)/chrome/
 !.config/tlp/
 !scripts/
@@ -32,6 +33,7 @@
 !.config/swaylock/**
 !.config/hypr/**
 !.config/waybar/**
+!.config/walker/**
 !.config/systemd/**
 !.config/fcd/**
 !.config/zen/b3zdx82h.Default (release)/chrome/**
