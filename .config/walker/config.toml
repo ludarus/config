@@ -10,6 +10,11 @@ exact_search_prefix = "'"
 # mouse over it before typing works under some compositors).
 force_keyboard_focus = true
 
+# Placeholder text: `input` is the search prompt, `list` shows when there are
+# no results. Keyed by provider name; "default" applies to all providers.
+[placeholders]
+"default" = { input = "hi", list = ":c" }
+
 # Navigation keybinds. Defaults are Down/Up; add Ctrl+N / Ctrl+P (emacs-style).
 [keybinds]
 next = ["Down", "ctrl n"]

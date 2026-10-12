@@ -48,6 +48,10 @@
       "rev": "c1fcf75c5f9c9c01dd392852de44204b60f1b5b1",
       "src": "https://github.com/brianhuster/live-preview.nvim"
     },
+    "live-share.nvim": {
+      "rev": "dae9c34025d070984953df73ed449fffa23d9463",
+      "src": "https://github.com/azratul/live-share.nvim"
+    },
     "mini.completion": {
       "rev": "4f94cafdeef02bf3ef9997cd6862658801caa22c",
       "src": "https://github.com/nvim-mini/mini.completion"

@@ -181,6 +181,11 @@ require 'hex'.setup {
 	end,
 }
 
+-- collaborative editing (VS Code Live Share alternative)
+require("live-share").setup({
+	username = "joe",
+})
+
 -- lsp diagnostics
 require("tiny-inline-diagnostic").setup({
 	-- Choose a preset style for diagnostic appearance

@@ -44,4 +44,7 @@ vim.pack.add({
 
 	-- lsp diagnostics
 	{ src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim" },
+
+	-- collaborative editing (VS Code Live Share alternative)
+	{ src = "https://github.com/azratul/live-share.nvim" },
 })
