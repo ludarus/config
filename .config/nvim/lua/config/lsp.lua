@@ -29,7 +29,7 @@ vim.lsp.config("pylsp", {
 })
 
 -- enabling languages for lsp
-local servers = { "pylsp", "jdtls", "tinymist", "lua_ls", "clangd", "html", "cssls", "tailwindcss", "ts_ls", "jsonls",
+local servers = { "jdtls", "tinymist", "lua_ls", "clangd", "html", "cssls", "tailwindcss", "ts_ls", "jsonls",
 	"bashls" }
 
 -- Neovim's fallback file-watching backend (vim._watch.watchdirs, used when

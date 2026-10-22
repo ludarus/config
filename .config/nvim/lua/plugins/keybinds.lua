@@ -8,7 +8,14 @@ vim.keymap.set("c", "<M-d>", function()
 end, { expr = true })
 
 -- for executing functions and stuph
-local builtin = require('telescope.builtin')
+-- Lazy accessor: telescope.builtin is only require()'d the first time one of
+-- these keymaps actually fires, instead of at startup. require() is cached, so
+-- subsequent calls are free. This keeps telescope out of the startup path.
+local builtin = setmetatable({}, {
+	__index = function(_, name)
+		return require('telescope.builtin')[name]
+	end,
+})
 
 
 -- find files in the current working directory (cwd, incl. tcd set by <leader>d),

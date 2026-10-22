@@ -1,0 +1,33 @@
+# Neovide configuration — tuned for faster startup.
+# Schema valid for Neovide 0.16.x (see https://neovide.dev/config-file.html).
+#
+# The biggest startup win here is `fork = false`: Neovide will not fork into the
+# background, which avoids extra process/handoff overhead at launch. The explicit
+# [font] block also stops Neovide from probing font fallbacks across every
+# installed JetBrainsMono variant at startup.
+
+# Do not fork to the background. Avoids the extra process spin-up on launch.
+fork = false
+
+# Point directly at the nvim binary so Neovide skips the $PATH lookup.
+neovim-bin = "/usr/bin/nvim"
+
+# Keep vsync on (tear-free). If startup/first-frame still feels slow you can
+# try `vsync = false` + a capped refresh rate in init.lua, but vsync itself is
+# not a startup cost.
+vsync = true
+
+# Don't block startup capturing/printing a startup message.
+startup-message-capture = false
+
+frame = "full"
+idle = true
+maximized = false
+no-multigrid = false
+
+[font]
+# Explicit family + size so Neovide resolves ONE font instead of scanning all
+# 128 JetBrainsMono entries fontconfig reports. Size is in pixels here (TOML),
+# ~20pt at scale 1.0 -> 20 * 96/72 ≈ 26.7px. Matches your guifont h20.
+normal = ["JetBrainsMono Nerd Font Mono"]
+size = 26.7

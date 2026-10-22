@@ -23,6 +23,7 @@
 !scripts/
 !.config/systemd/
 !.config/fcd/
+!.config/elephant/
 
 !.config/kitty/**
 !.config/neovide/**
@@ -39,6 +40,7 @@
 !.config/zen/b3zdx82h.Default (release)/chrome/**
 !.config/zen/b3zdx82h.Default (release)/prefs.js
 !.config/tlp/**
+!.config/elephant/**
 
 !.oh-my-zsh/oh-my-zsh.sh
 !.p10k.zsh

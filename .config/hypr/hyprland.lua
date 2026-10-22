@@ -24,6 +24,11 @@ hl.on("hyprland.start", function()
 		"systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE && " ..
 		"dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE && " ..
 		"systemctl --user restart elephant.service walker.service")
+	-- Screen sharing (Vesktop/OBS/etc) needs the hyprland screencast portal
+	-- running with the live WAYLAND_DISPLAY. D-Bus activation does not reliably
+	-- start it at login here, so start it explicitly after the env import above.
+	-- The portal must come up AFTER import-environment or it binds a stale env.
+	hl.exec_cmd("systemctl --user restart xdg-desktop-portal-hyprland.service xdg-desktop-portal.service")
 	hl.exec_cmd("waybar")
 	hl.exec_cmd("nm-applet")
 	-- Bluetooth tray applet: auto-connects trusted devices (e.g. WH-1000XM6)
@@ -64,15 +69,10 @@ hl.on("hyprland.start", function()
 
 	-- Preserve the Sway startup applications.
 	hl.exec_cmd("zen-browser")
-	hl.exec_cmd("discord")
-	hl.exec_cmd("spotify-launcher")
-	-- Run Obsidian as a native Wayland client. Under XWayland (the Electron
-	-- default) the window has no per-pixel alpha, so Hyprland's rounding = 15
-	-- leaves the app's opaque square background showing through as white
-	-- triangles at each rounded corner. Native Wayland supports the alpha
-	-- channel, so the corners render transparent/clean.
+	hl.exec_cmd("vesktop")
 	hl.exec_cmd("obsidian --enable-features=UseOzonePlatform --ozone-platform=wayland")
 	hl.exec_cmd("sleep 3 && ticktick")
+	hl.exec_cmd("sleep 3 && spotify-launcher")
 end)
 
 ----------------
@@ -152,26 +152,26 @@ hl.config({
 
 -- beziers
 -- Default beziers from Hyprland's shipped example config.
-hl.curve("easeOutQuint", { type = "bezier", points = { {0.23, 1}, {0.32, 1} } })
-hl.curve("easeInOutCubic", { type = "bezier", points = { {0.65, 0.05}, {0.36, 1} } })
-hl.curve("linear", { type = "bezier", points = { {0, 0}, {1, 1} } })
-hl.curve("almostLinear", { type = "bezier", points = { {0.5, 0.5}, {0.75, 1} } })
-hl.curve("quick", { type = "bezier", points = { {0.15, 0}, {0.1, 1} } })
+hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
+hl.curve("easeInOutCubic", { type = "bezier", points = { { 0.65, 0.05 }, { 0.36, 1 } } })
+hl.curve("linear", { type = "bezier", points = { { 0, 0 }, { 1, 1 } } })
+hl.curve("almostLinear", { type = "bezier", points = { { 0.5, 0.5 }, { 0.75, 1 } } })
+hl.curve("quick", { type = "bezier", points = { { 0.15, 0 }, { 0.1, 1 } } })
 
-hl.curve( "epicBezier", { type = "bezier", points = { {0, 0}, {2, 2} } })
+hl.curve("epicBezier", { type = "bezier", points = { { 0, 0 }, { 2, 2 } } })
 
 -- animations
-	-- special workspaces
-hl.animation({ leaf = "specialWorkspaceIn", enabled = true, speed = 2, bezier = "easeOutQuint", style = "slidevert -50%"})
-hl.animation({ leaf = "specialWorkspaceOut", enabled = true, speed = 2, bezier = "easeInOutCubic", style = "slidevert"})
+-- special workspaces
+hl.animation({ leaf = "specialWorkspaceIn", enabled = true, speed = 2, bezier = "easeOutQuint", style = "slidevert -50%" })
+hl.animation({ leaf = "specialWorkspaceOut", enabled = true, speed = 2, bezier = "easeInOutCubic", style = "slidevert" })
 -- hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 1, bezier = "quick", style = "fade"})
 
-	-- normal workspaces
-hl.animation({ leaf = "workspacesIn", enabled = true, speed = 2, bezier = "easeOutQuint", style = "slide"})
-hl.animation({ leaf = "workspacesOut", enabled = true, speed = 2, bezier = "easeOutQuint", style = "slide"})
+-- normal workspaces
+hl.animation({ leaf = "workspacesIn", enabled = true, speed = 2, bezier = "easeOutQuint", style = "slide" })
+hl.animation({ leaf = "workspacesOut", enabled = true, speed = 2, bezier = "easeOutQuint", style = "slide" })
 
-	-- windows
-hl.animation({ leaf = "windowsIn", enabled = true, speed = 2, bezier = "easeOutQuint", style = "gnomed"})
+-- windows
+hl.animation({ leaf = "windowsIn", enabled = true, speed = 2, bezier = "easeOutQuint", style = "gnomed" })
 
 ----------------
 -- INPUT / TOUCHPAD
@@ -237,6 +237,7 @@ hl.bind(mod .. " + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
 
 hl.bind(mod .. " + Return", hl.dsp.exec_cmd(terminal .. " tmux new-session -A"))
 hl.bind(mod .. " + SHIFT + Return", hl.dsp.exec_cmd(terminal .. " tmux new"))
+hl.bind(mod .. " + SHIFT + E", hl.dsp.exec_cmd("neovide ~/Downloads"))
 hl.bind(mod .. " + E", hl.dsp.exec_cmd("neovide ~"))
 hl.bind(mod .. " + Q", hl.dsp.window.close())
 
@@ -254,12 +255,25 @@ for key, direction in pairs(focus_keys) do
 	hl.bind(mod .. " + " .. key, hl.dsp.focus({ direction = direction }))
 end
 
--- Move the focused window in a direction (Sway: $mod+Shift+$left etc.).
--- Sway's `move <dir>` shifts the window within the tiling layout, so the
--- direction-based dispatcher is the correct match rather than pixel moves.
-local move_keys = { h = "l", j = "d", k = "u", l = "r" }
-for key, direction in pairs(move_keys) do
-	hl.bind(mod .. " + SHIFT + " .. key, hl.dsp.window.move({ direction = direction }))
+-- Move the focused window. Tiled windows shift within the layout (directional,
+-- the Sway `move <dir>` behaviour); floating windows nudge by a fixed pixel
+-- step so they move a small, controllable distance instead of snapping far.
+local move_step = 100 -- pixels per keypress for floating windows; tune to taste
+local move_map = {
+	h = { dir = "l", dx = -move_step, dy = 0 },
+	j = { dir = "d", dx = 0,          dy = move_step },
+	k = { dir = "u", dx = 0,          dy = -move_step },
+	l = { dir = "r", dx = move_step,  dy = 0 },
+}
+for key, m in pairs(move_map) do
+	hl.bind(mod .. " + SHIFT + " .. key, function()
+		local w = hl.get_active_window()
+		if w and w.floating then
+			hl.dispatch(hl.dsp.window.move({ x = m.dx, y = m.dy, relative = true }))
+		else
+			hl.dispatch(hl.dsp.window.move({ direction = m.dir }))
+		end
+	end, { repeating = true })
 end
 
 -- Workspaces and moving windows to workspaces.
@@ -277,7 +291,14 @@ hl.bind(mod .. " + CTRL + h", hl.dsp.focus({ workspace = "e-1" }))
 hl.bind(mod .. " + D", hl.dsp.layout("togglesplit"))
 hl.bind(mod .. " + V", hl.dsp.window.fullscreen())
 hl.bind(mod .. " + F", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mod .. " + W", hl.dsp.window.float({ action = "toggle" }))
+-- SUPER + W: Sway-style `focus mode_toggle`. Hyprland has no native dispatcher
+-- that flips focus between the floating and tiled layers, so this checks the
+-- active window's floating state and cycles into the opposite group:
+-- floating -> next tiled window, tiled -> next floating window.
+hl.bind(mod .. " + W", function()
+	local w = hl.get_active_window()
+	hl.dispatch(hl.dsp.window.cycle_next(w and w.floating and { tiled = true } or { floating = true }))
+end)
 hl.bind(mod .. " + P", hl.dsp.window.pseudo({ action = "toggle" }))
 
 -- Scratchpad -> named special workspace.
@@ -296,10 +317,10 @@ hl.bind("Print", hl.dsp.exec_cmd("grim"))
 -- Resizing mode from Sway's mode "resize".
 hl.bind(mod .. " + R", hl.dsp.submap("resize"))
 hl.define_submap("resize", function()
-	hl.bind("h", hl.dsp.window.resize({ x = 100, y = 0, relative = true }), { repeating = true })
+	hl.bind("h", hl.dsp.window.resize({ x = -100, y = 0, relative = true }), { repeating = true })
 	hl.bind("j", hl.dsp.window.resize({ x = 0, y = 100, relative = true }), { repeating = true })
 	hl.bind("k", hl.dsp.window.resize({ x = 0, y = -100, relative = true }), { repeating = true })
-	hl.bind("l", hl.dsp.window.resize({ x = -100, y = 0, relative = true }), { repeating = true })
+	hl.bind("l", hl.dsp.window.resize({ x = 100, y = 0, relative = true }), { repeating = true })
 	hl.bind("Return", hl.dsp.submap("reset"))
 	hl.bind("Escape", hl.dsp.submap("reset"))
 end)
@@ -334,15 +355,15 @@ hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tru
 -- workspace happened to be focused at launch.
 local app_workspaces = {
 	{ class = "^(ticktick|TickTick|com\\.ticktick\\.TickTick)$",         workspace = "1" },
-	{ class = "^(zen|Zen|zen-browser)$",                                 workspace = "2", idle_inhibit = "fullscreen" },
+	{ class = "^(zen|Zen|zen-browser)$",                                 workspace = "2",              idle_inhibit = "fullscreen" },
 	{ class = "^(md\\.obsidian\\.Obsidian|obsidian)$",                   workspace = "3" },
 	{ class = "^(Spotify|spotify)$",                                     workspace = "special:spotify" },
-	{ class = "^(discord|Discord)$",                                     workspace = "4" },
+	{ class = "^(vesktop|Vesktop|dev\\.vencord\\.Vesktop)$",             workspace = "4" },
 	{ class = "^(STM32CubeIDE|stm32cubeide)$",                           workspace = "5" },
 	{ class = "^(com-st-microxplorer-maingui-STM32CubeMX|STM32CubeMX)$", workspace = "6" },
 }
 -- Rule names must be UNIQUE. The previous version named every rule
--- "sway-app-workspace-" .. workspace, so Spotify and discord (both workspace
+-- "sway-app-workspace-" .. workspace, so Spotify and vesktop (both workspace
 -- "4") produced the same name "sway-app-workspace-4"; the second registration
 -- silently overwrote the first, leaving Spotify with no workspace rule at all.
 -- Index the name instead so each app gets its own rule.
@@ -369,17 +390,12 @@ hl.window_rule({
 -- window_rule supports a `workspace` match prop (see the smart-gaps example in
 -- the wiki). "override" sets an absolute 0.85 for active/inactive/fullscreen so
 -- it isn't multiplied down by decoration.active_opacity.
-hl.window_rule({
-	name = "scratchpad-opacity",
-	match = { workspace = "special:scratchpad" },
-	opacity = "0.80 override",
-})
+-- hl.window_rule({
+-- 	name = "scratchpad-opacity",
+-- 	match = { workspace = "special:scratchpad" },
+-- 	opacity = "0.80 override",
+-- })
 
-hl.window_rule({
-	name = "spotify-opacity",
-	match = { workspace = "special:spotify" },
-	opacity = "0.65 override",
-})
 -- Obsidian kitty-style transparency fix.
 -- Chromium (Electron) reports its window as OPAQUE even when the CSS background
 -- has an alpha channel. Hyprland therefore refuses to composite/blur behind it,
@@ -396,6 +412,16 @@ hl.window_rule({
 	name = "obsidian-chromium-alpha-fix",
 	match = { class = "^(md\\.obsidian\\.Obsidian|obsidian)$" },
 	opacity = "0.9999 override",
+})
+
+-- TickTick: render at 90% opacity. "override" sets an absolute 0.90 for
+-- active/inactive/fullscreen so it isn't multiplied down by
+-- decoration.active_opacity. Class pattern matches the same spellings used in
+-- the app_workspaces placement rule above.
+hl.window_rule({
+	name = "ticktick-opacity",
+	match = { class = "^(ticktick|TickTick|com\\.ticktick\\.TickTick)$" },
+	opacity = "0.90 override",
 })
 
 -- Dialogs and utility windows that were floating under Sway.

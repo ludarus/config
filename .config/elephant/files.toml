@@ -1,0 +1,14 @@
+fd_flags = ['--no-ignore', '--type', 'file', '--type', 'directory', '--max-depth', '5']
+ignore_previews = []
+ignore_watching = []
+ignored_dirs = []
+search_dirs = ['/home/joe/projects','/home/joe/jault/2026fall','/home/joe/.config','/home/joe/scripts','/home/joe/Downloads']
+watch = false
+watch_buffer = 2000
+watch_dirs = []
+
+[Config]
+hide_from_providerlist = false
+icon = 'folder'
+min_score = 20
+name_pretty = ''
