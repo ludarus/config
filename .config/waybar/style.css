@@ -4,6 +4,34 @@
 	min-height: 0;
 }
 
+@keyframes color-change {
+	0%   { color: #ccefff; }
+	10%  { color: #ccd1ff; }
+	20%  { color: #e3ccff; }
+	30%  { color: #ffccfc; }
+	40%  { color: #ffcccc; }
+	50%  { color: #ffdccc; }
+	60%  { color: #fff1cc; }
+	70%  { color: #fdffcc; }
+	80%  { color: #ccffcd; }
+	90%  { color: #ccffe1; }
+	100% { color: #ccefff; }
+}
+
+@keyframes color-change-bold {
+    0% { color: #0077cc; }
+    10% { color: #7a00cc; }
+    20% { color: #cc00cc; }
+    30% { color: #cc0077; }
+    40% { color: #cc0000; }
+    50% { color: #cc6600; }
+    60% { color: #cccc00; }
+    70% { color: #66cc00; }
+    80% { color: #00cc66; }
+    90% { color: #00cccc; }
+    100% { color: #0077cc; }
+}
+
 window#waybar {
 	background-color: transparent;
 	/* background-color: rgba(0,0,0,0.50); */
@@ -34,6 +62,8 @@ window#waybar {
 
 #tray,
 #mpd,
+#custom-mediaplayer,
+#custom-cava,
 #custom-weather,
 #cpu,
 #custom-tlp,
@@ -65,4 +95,34 @@ window#waybar {
 
 #battery.discharging.warning {
 	color: #ffff54;
+}
+
+#custom-mediaplayer {
+	min-width: 6em;
+	margin-left: 5em;
+}
+
+#custom-mediaplayer.playing {
+	animation: color-change 5s infinite linear;
+}
+
+#custom-mediaplayer.paused {
+	color: #aaaaaa;
+	font-style: italic;
+}
+
+#custom-mediaplayer.stopped {
+	color: #888888;
+}
+
+#custom-cava {
+	animation: color-change 5s infinite linear;
+	letter-spacing: 1px;
+}
+
+/* Collapse the visualizer entirely when there's no audio playing. */
+#custom-cava.empty {
+	padding: 0;
+	margin: 0;
+	background: transparent;
 }

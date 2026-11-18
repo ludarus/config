@@ -11,8 +11,30 @@ local mod = "SUPER"
 -- MONITORS
 ----------------
 
-hl.monitor({ output = "eDP-1", mode = "2560x1600@60", position = "3840x0", scale = 1 })
-hl.monitor({ output = "HDMI-A-1", mode = "3840x2160@120", position = "0x0" })
+-- vertical configuration
+-- hl.monitor({ output = "eDP-1", mode = "2560x1600@60", position = "640x2160", scale = 1 })
+-- hl.monitor({ output = "HDMI-A-1", mode = "3840x2160@120", position = "0x0" })
+
+-- horizontal configuration
+
+-- Same check as ~/scripts/gpu-detect.sh: "False" = hybrid off (NVIDIA-only / dGPU mode).
+-- -n makes sudo fail instead of hanging on a password prompt; on failure the
+-- default line below is used.
+local function nvidia_only()
+	local p = io.popen("sudo -n legion_cli hybrid-mode-status 2>/dev/null | tail -n1")
+	if not p then return false end
+	local out = p:read("*a") or ""
+	p:close()
+	return out:match("^%s*False%s*$") ~= nil
+end
+
+if nvidia_only() then
+	hl.monitor({ output = "eDP-1", mode = "2560x1600@240", position = "3840x0", scale = 1 })
+else
+	hl.monitor({ output = "eDP-1", mode = "2560x1600@60", position = "0x0", scale = 1 })
+end
+
+hl.monitor({ output = "HDMI-A-1", mode = "3840x2160@240", position = "0x0" })
 
 ----------------
 -- AUTOSTART
@@ -71,8 +93,13 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("zen-browser")
 	hl.exec_cmd("vesktop")
 	hl.exec_cmd("obsidian --enable-features=UseOzonePlatform --ozone-platform=wayland")
-	hl.exec_cmd("sleep 3 && ticktick")
-	hl.exec_cmd("sleep 3 && spotify-launcher")
+	-- Wait for NetworkManager to report connectivity before launching the
+	-- network-dependent apps. TickTick renders its UI from a remote web view,
+	-- so launching before the network is up leaves it stuck on a white splash
+	-- (all startup API calls fail). nm-online blocks until online (up to 60s)
+	-- then returns immediately, replacing the unreliable fixed `sleep 3`.
+	hl.exec_cmd("nm-online -q -t 60 && ticktick")
+	hl.exec_cmd("nm-online -q -t 60 && spotify-launcher")
 end)
 
 ----------------
@@ -288,7 +315,9 @@ hl.bind(mod .. " + CTRL + h", hl.dsp.focus({ workspace = "e-1" }))
 
 -- Layouts. Dwindle has no direct stacking/tabbed/splith/splitv equivalents;
 -- togglesplit (Sway: $mod+d "layout toggle split") is the closest match.
-hl.bind(mod .. " + D", hl.dsp.layout("togglesplit"))
+-- NOTE: SUPER + D now toggles the Discord special workspace (below), so
+-- togglesplit has been moved to SUPER + T.
+hl.bind(mod .. " + T", hl.dsp.layout("togglesplit"))
 hl.bind(mod .. " + V", hl.dsp.window.fullscreen())
 hl.bind(mod .. " + F", hl.dsp.window.float({ action = "toggle" }))
 -- SUPER + W: Sway-style `focus mode_toggle`. Hyprland has no native dispatcher
@@ -309,6 +338,12 @@ hl.bind(mod .. " + Escape", hl.dsp.workspace.toggle_special("scratchpad"))
 -- window rule (match class -> workspace "special:spotify"); SUPER + M toggles it.
 hl.bind(mod .. " + M", hl.dsp.workspace.toggle_special("spotify"))
 hl.bind(mod .. " + SHIFT + M", hl.dsp.window.move({ workspace = "special:spotify" }))
+
+-- Discord (Vesktop) -> dedicated special workspace, same rules as Spotify.
+-- Vesktop auto-lands here via its window rule (match class -> workspace
+-- "special:discord"); SUPER + D toggles it, SUPER + SHIFT + D moves a window in.
+hl.bind(mod .. " + D", hl.dsp.workspace.toggle_special("discord"))
+hl.bind(mod .. " + SHIFT + D", hl.dsp.window.move({ workspace = "special:discord" }))
 
 -- Screenshots.
 hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd([[grim -g "$(slurp)" - | wl-copy]]))
@@ -358,9 +393,7 @@ local app_workspaces = {
 	{ class = "^(zen|Zen|zen-browser)$",                                 workspace = "2",              idle_inhibit = "fullscreen" },
 	{ class = "^(md\\.obsidian\\.Obsidian|obsidian)$",                   workspace = "3" },
 	{ class = "^(Spotify|spotify)$",                                     workspace = "special:spotify" },
-	{ class = "^(vesktop|Vesktop|dev\\.vencord\\.Vesktop)$",             workspace = "4" },
-	{ class = "^(STM32CubeIDE|stm32cubeide)$",                           workspace = "5" },
-	{ class = "^(com-st-microxplorer-maingui-STM32CubeMX|STM32CubeMX)$", workspace = "6" },
+	{ class = "^(vesktop|Vesktop|dev\\.vencord\\.Vesktop)$",             workspace = "special:discord" },
 }
 -- Rule names must be UNIQUE. The previous version named every rule
 -- "sway-app-workspace-" .. workspace, so Spotify and vesktop (both workspace
@@ -382,6 +415,15 @@ end
 hl.window_rule({
 	name = "spotify-pseudo",
 	match = { class = "^(Spotify|spotify)$" },
+	pseudo = true,
+	size = { "monitor_w * 0.8", "monitor_h * 0.8" },
+})
+
+-- Open Discord (Vesktop) in pseudotile mode at 80% of the monitor, same as
+-- Spotify above.
+hl.window_rule({
+	name = "discord-pseudo",
+	match = { class = "^(vesktop|Vesktop|dev\\.vencord\\.Vesktop)$" },
 	pseudo = true,
 	size = { "monitor_w * 0.8", "monitor_h * 0.8" },
 })

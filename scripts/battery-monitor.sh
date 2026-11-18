@@ -21,10 +21,16 @@ elif (( BATTERY > 15 && STATE == 2 )); then
     STATE=1
 fi
 
-# Only send notifications while discharging
+# Only act while discharging
 if [[ "$STATUS" == "Discharging" ]]; then
+    # Emergency hibernate so the thing doesn't die forever when i
+    # don't have my full adapter. Checked every run, independent of
+    # notification state.
+    if (( BATTERY <= 6 )); then
+        systemctl hibernate
+
     # Critical battery
-    if (( BATTERY <= 15 && STATE < 2 )); then
+    elif (( BATTERY <= 15 && STATE < 2 )); then
         notify-send -u critical -t 0 \
             "Battery Critical" \
             "Battery is at ${BATTERY}%, connect to AC power immediately"

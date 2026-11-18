@@ -6,7 +6,9 @@
 	"margin-bottom": 0,
 	"margin-top": 0,
 	"modules-left": [
-		"hyprland/workspaces"
+		"hyprland/workspaces",
+		"custom/mediaplayer",
+		"custom/cava"
 	],
 	"modules-center": [
 		"hyprland/window"
@@ -161,6 +163,23 @@
 		"tooltip-format": "MPD (connected)",
 		"tooltip-format-disconnected": "MPD (disconnected)",
 		"max-length": 35
+	},
+	"custom/mediaplayer": {
+		"format": "{}",
+		"return-type": "json",
+		"max-length": 50,
+		"interval": 2,
+		"exec": "~/scripts/mediaplayer.sh",
+		"exec-if": "pgrep -x playerctld || playerctl status",
+		"on-click": "playerctl --player=\"$(~/scripts/mediaplayer.sh player)\" play-pause",
+		"on-scroll-up": "playerctl --player=\"$(~/scripts/mediaplayer.sh player)\" next",
+		"on-scroll-down": "playerctl --player=\"$(~/scripts/mediaplayer.sh player)\" previous",
+		"escape": true
+	},
+	"custom/cava": {
+		"exec": "~/scripts/cava-waybar.sh",
+		"tooltip": false,
+		"on-click": "playerctl play-pause"
 	},
 	"custom/recorder": {
 		"format": " Rec",

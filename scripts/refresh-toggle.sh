@@ -10,4 +10,4 @@ else
 	target=240
 fi
 
-hyprctl eval "hl.monitor({ output = \"eDP-1\", mode = \"2560x1600@${target}\", position = \"3840x0\", scale = 1 })"
+hyprctl eval "hl.monitor({ output = \"eDP-1\", mode = \"2560x1600@${target}\", scale = 1 })"

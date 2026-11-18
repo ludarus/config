@@ -4,11 +4,12 @@ case "$1" in
 toggle)
 	profile=$(sudo tlp-stat -m | cut -d/ -f1)
 
-	if [ "$profile" = "power-saver" ]; then
-		sudo tlp balanced
-	else
-		sudo tlp power-saver
-	fi
+	case "$profile" in
+	power-saver) sudo tlp balanced ;;
+	balanced) sudo tlp performance ;;
+	performance) sudo tlp power-saver ;;
+	*) sudo tlp power-saver ;;
+	esac
 	;;
 esac
 
